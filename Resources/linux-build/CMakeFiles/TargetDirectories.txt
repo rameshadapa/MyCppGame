@@ -1,9 +1,0 @@
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/CMakeFiles/MyGame.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/CMakeFiles/MyGame_CORE_PRE_BUILD.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/CMakeFiles/MyGame_PRE_BUILD.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/cocos2d/external/Box2D/CMakeFiles/box2d.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/cocos2d/cocos/CMakeFiles/cocos2d.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/cocos2d/external/flatbuffers/CMakeFiles/flatbuffers.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/cocos2d/external/tinyxml2/CMakeFiles/tinyxml2.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/cocos2d/external/unzip/CMakeFiles/unzip.dir
-/media/sda2/home/rameshadapa/mywork/GameWork/MyCppGame/linux-build/cocos2d/external/xxhash/CMakeFiles/xxhash.dir
