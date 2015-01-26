@@ -2,6 +2,7 @@
 #define __HERO_MC__
 
 #include "cocos2d.h"
+#include "Box2D/Box2D.h"
 #include <spine/spine-cocos2dx.h>
 
 class HeroMC : public cocos2d::Sprite
@@ -21,12 +22,11 @@ class HeroMC : public cocos2d::Sprite
     spine::SkeletonAnimation* heroSkeleton;
     cocos2d::Vec2 _velocity;
     cocos2d::Vec2 _position;
-    static HeroMC* instance;
 
-private:
-    HeroMC(void);
+    Sprite *mainChar;
 
 public:
+    HeroMC(void);
     ~HeroMC(void);
 
     void Move(float delta);
@@ -42,9 +42,11 @@ public:
     cocos2d::Vec2 GetPosition()	{	return _position;	}
 
     void SetMineDirection(unsigned char mineDirection);
-    unsigned char GetMineDirection()	{	return _mineDirection;	}
+//    unsigned char GetMineDirection()	{	return _mineDirection;	}
 
-    static HeroMC* HeroInstance();
+    static HeroMC* create(const std::string& fileName);
+
+    void SetPhysics(b2World *world);
 };
 
 #endif	// __HERO_MC__

@@ -111,6 +111,7 @@ include_directories(
   /usr/include/GLFW
   ${COCOS2D_ROOT}/cocos
   ${COCOS2D_ROOT}/external
+  ${COCOS2D_ROOT}/cocos/editor-support
   Classes
 )
 
@@ -119,7 +120,9 @@ set(GAME_SRC
   Classes/SplashScreenScene.cpp
   Classes/MainMenuScene.cpp
   Classes/GamePlayScene.cpp
-  Classes/HelloWorldScene.cpp
+  Classes/HeroMC.cpp
+  Classes/TiledBodyCreator.cpp
+  Classes/GLES-Render.cpp
   Classes/ShaderNode.cpp
   Classes/ShaderLayer.cpp
   ${PLATFORM_SPECIFIC_SRC}
@@ -137,7 +140,7 @@ else()
 add_executable(${APP_NAME} ${GAME_SRC})
 endif()
 
-target_link_libraries(${APP_NAME} cocos2d)
+target_link_libraries(${APP_NAME} cocos2d Box2D)
 
 set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
 

@@ -1,8 +1,20 @@
 #include "GamePlayScene.h"
 #include "ShaderLayer.h"
 #include "ShaderNode.h"
+#include "HeroMC.h"
+#include "TiledBodyCreator.h"
 
 USING_NS_CC;
+
+GamePlay::GamePlay()
+{
+}
+
+GamePlay::~GamePlay()
+{
+    delete _world;
+    delete _debugDraw;
+}
 
 Scene* GamePlay::createScene()
 {
@@ -27,16 +39,39 @@ bool GamePlay::init()
     Point origin = Director::getInstance()->getVisibleOrigin();
 
     b2Vec2 gravity;
-    gravity.Set(0.0f, 0.98f);
+    gravity.Set(0.0f, -0.98f);
 
     _world = new b2World(gravity);
     _world->SetAllowSleeping(true);
     _world->SetContinuousPhysics(true);
+    _debugDraw = new GLESDebugDraw( 32.0f );
+
+    uint32 flags = 0;
+//    flags += b2Draw::e_shapeBit;
+    flags += b2Draw::e_centerOfMassBit;
+    flags += b2Draw::e_jointBit;
+    flags += b2Draw::e_pairBit;
+    flags += b2Draw::e_shapeBit;
+    _debugDraw->SetFlags(flags);
+    _world->SetDebugDraw(_debugDraw);
 
     tileMap = TMXTiledMap::create("level1.tmx");
-    tileMap->setPosition(Point(origin.x, origin.y));
+    tileMap->setPosition(Point(origin.x - size.width/2, origin.y));
     if(tileMap != nullptr)
-        this->addChild(tileMap);
+        this->addChild(tileMap, -1);
+
+//    TiledBodyCreator::initCollisionMap(tileMap, _world);
+
+    prepareWorldLayer();
+
+    auto mc = HeroMC::create("mc.png");
+    mc->setPosition(Point(origin.x+mc->getContentSize().width/2, origin.y+size.height-mc->getContentSize().height/2));
+
+    this->addChild(mc);
+
+    mc->SetPhysics(_world);
+
+    scheduleUpdate();
 /*
     auto label = LabelTTF::create("Game Play", "Arial", 40);
 
@@ -119,6 +154,47 @@ bool GamePlay::init()
     return true;
 }
 
+void GamePlay::draw(Renderer *renderer, const Mat4 &transform, bool transformUpdated)
+{
+    Node::draw(renderer, transform, transformUpdated);
+    _world->DrawDebugData();
+}
+
+void GamePlay::update(float dt)
+{
+    int velocityIterations = 8;
+    int positionIterations = 2;
+
+    _world->Step(dt, velocityIterations, positionIterations);
+
+    for(b2Body *b = _world->GetBodyList(); b; b = b->GetNext())
+    {
+	if(b->GetUserData())
+	{
+//	    Sprite* physicsSprite = (Sprite*)b->GetUserData();
+//	    physicsSprite->setPosition(Point(b->GetPosition().x*32.0, b->GetPosition().y*32.0));
+/*	    if(physicsSprite->getTag() == 1)
+	    {
+		static int maxSpeed = 9.8;
+		b2Vec2 velocity = b->GetLinearVelocity();
+		float32 speed = velocity.Length();
+
+		if( speed > maxSpeed )
+		{
+		    b->SetLinearDamping(0.5);
+		} else if( speed < maxSpeed )
+		{
+		    b->SetLinearDamping(0.0);
+		}
+   	    }
+	    if(physicsSprite->getTag() == 0)
+	    {
+		
+	    }*/
+	}
+    }
+}
+
 void GamePlay::prepareWorldLayer()
 {
     for(auto &object : this->tileMap->getChildren())
@@ -139,7 +215,7 @@ void GamePlay::createWorldPhysics(TMXLayer* layer)
 	{
 	    auto tileSprite = layer->getTileAt(Point(x, y));
 	    if(tileSprite)
-		this->createPhysicsForTile(layer, x, y, 1.1f, 1.1f);
+		this->createPhysicsForTile(layer, x, y, 0.0f, 0.0f);
 	}
    }
 }
@@ -147,6 +223,7 @@ void GamePlay::createWorldPhysics(TMXLayer* layer)
 void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y, float width, float height)
 {
     auto p = layer->getPositionAt(Point(x, y));
+    auto tile = layer->getTileAt(Point(x,y));
     auto tileSize = this->tileMap->getTileSize();
 
     const float pixelPerMeter = 32.0f;
@@ -156,6 +233,7 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y, float width, 
     bodyDef.position.Set(
 	(p.x + (tileSize.width / 2.0f) ) / pixelPerMeter,
 	(p.y + (tileSize.height/ 2.0f) ) / pixelPerMeter);
+    bodyDef.userData = tile;
 
     b2Body *body = _world->CreateBody(&bodyDef);
 
