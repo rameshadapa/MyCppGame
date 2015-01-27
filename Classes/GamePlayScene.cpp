@@ -1,4 +1,5 @@
 #include "GamePlayScene.h"
+#include "GameOSD.h"
 #include "ShaderLayer.h"
 #include "ShaderNode.h"
 #include "HeroMC.h"
@@ -44,7 +45,7 @@ bool GamePlay::init()
     _world = new b2World(gravity);
     _world->SetAllowSleeping(true);
     _world->SetContinuousPhysics(true);
-    _debugDraw = new GLESDebugDraw( 32.0f );
+    _debugDraw = new GLESDebugDraw( PTM_RATIO );
 
     uint32 flags = 0;
 //    flags += b2Draw::e_shapeBit;
@@ -64,12 +65,12 @@ bool GamePlay::init()
 
     prepareWorldLayer();
 
-    auto mc = HeroMC::create("mc.png");
-    mc->setPosition(Point(origin.x+mc->getContentSize().width/2, origin.y+size.height-mc->getContentSize().height/2));
+    mainChar = HeroMC::create("mc.png");
+    mainChar->setPosition(Point(origin.x+mainChar->getContentSize().width/2, origin.y+size.height-mainChar->getContentSize().height/2));
 
-    this->addChild(mc);
+    this->addChild(mainChar);
 
-    mc->SetPhysics(_world);
+    mainChar->SetPhysics(_world);
 
     scheduleUpdate();
 /*
@@ -226,7 +227,7 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y, float width, 
     auto tile = layer->getTileAt(Point(x,y));
     auto tileSize = this->tileMap->getTileSize();
 
-    const float pixelPerMeter = 32.0f;
+    const float pixelPerMeter = PTM_RATIO;
 
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;

@@ -32,12 +32,12 @@ void HeroMC::SetPhysics(b2World *world)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(getPosition().x / 32.0, getPosition().y / 32.0);
+	bodyDef.position.Set(getPosition().x / PTM_RATIO, getPosition().y / PTM_RATIO);
       	bodyDef.userData = this;
 
 	b2Body *mcBody = world->CreateBody(&bodyDef);
 	b2PolygonShape mcShape;
-	mcShape.SetAsBox(getPosition().x/32.0, getPosition().y/32.0, b2Vec2(getPosition().x+getContentSize().width/2/32.0, getPosition().y+getContentSize().height/2/32.0), 0);
+	mcShape.SetAsBox(getPosition().x/PTM_RATIO, getPosition().y/PTM_RATIO, b2Vec2(getPosition().x+getContentSize().width/2/PTM_RATIO, getPosition().y+getContentSize().height/2/PTM_RATIO), 0);
 
 	b2FixtureDef mcFixture;
 	mcFixture.shape = &mcShape;

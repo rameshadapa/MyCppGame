@@ -2,10 +2,12 @@
 #define __GAMEPLAY_SCENE_H__
 
 #include "cocos2d.h"
+#include "GameOSD.h"
+#include "HeroMC.h"
 #include "GLES-Render.h"
 #include "Box2D/Box2D.h"
 
-class GamePlay : public cocos2d::Layer
+class GamePlay : public cocos2d::Layer, public GameOSD
 {
 public:
 
@@ -27,10 +29,17 @@ public:
     CREATE_FUNC(GamePlay);
 
 private:
-    GLESDebugDraw *_debugDraw;
+    //Box2D World
     b2World *_world;
-    b2Body *_mcBodyDef;
+    //Box2D debugDraw.
+    GLESDebugDraw *_debugDraw;
+
+    //One onscreen TileMap & one Temparary tilemap.
     cocos2d::TMXTiledMap *tileMap;
+    cocos2d::TMXTiledMap *tmpMap;
+
+    //MainCharacter pointer.
+    HeroMC *mainChar;
 };
 
 #endif	// __GAMEPLAY_SCENE_H__

@@ -117,6 +117,7 @@ include_directories(
 
 set(GAME_SRC
   Classes/AppDelegate.cpp
+  Classes/GameOSD.cpp
   Classes/SplashScreenScene.cpp
   Classes/MainMenuScene.cpp
   Classes/GamePlayScene.cpp

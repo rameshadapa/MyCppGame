@@ -2,10 +2,11 @@
 #define __HERO_MC__
 
 #include "cocos2d.h"
+#include "GameOSD.h"
 #include "Box2D/Box2D.h"
 #include <spine/spine-cocos2dx.h>
 
-class HeroMC : public cocos2d::Sprite
+class HeroMC : public cocos2d::Sprite, public GameOSD
 {
     enum
     {
