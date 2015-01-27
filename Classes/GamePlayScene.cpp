@@ -14,7 +14,6 @@ GamePlay::GamePlay()
 GamePlay::~GamePlay()
 {
     delete _world;
-    delete _debugDraw;
 }
 
 Scene* GamePlay::createScene()
@@ -40,21 +39,20 @@ bool GamePlay::init()
     Point origin = Director::getInstance()->getVisibleOrigin();
 
     b2Vec2 gravity;
-    gravity.Set(0.0f, -0.98f);
+    gravity.Set(0.0f, -9.8f);
 
     _world = new b2World(gravity);
     _world->SetAllowSleeping(true);
     _world->SetContinuousPhysics(true);
-    _debugDraw = new GLESDebugDraw( PTM_RATIO );
 
+    _world->SetDebugDraw(&_debugDraw);
     uint32 flags = 0;
-//    flags += b2Draw::e_shapeBit;
-    flags += b2Draw::e_centerOfMassBit;
-    flags += b2Draw::e_jointBit;
-    flags += b2Draw::e_pairBit;
     flags += b2Draw::e_shapeBit;
-    _debugDraw->SetFlags(flags);
-    _world->SetDebugDraw(_debugDraw);
+    flags += b2Draw::e_jointBit;
+    flags += b2Draw::e_centerOfMassBit;
+//    flags += b2Draw::e_pairBit;
+//    flags += b2Draw::e_shapeBit;
+    _debugDraw.SetFlags(flags);
 
     tileMap = TMXTiledMap::create("level1.tmx");
     tileMap->setPosition(Point(origin.x - size.width/2, origin.y));
@@ -187,8 +185,8 @@ void GamePlay::update(float dt)
     {
 	if(b->GetUserData())
 	{
-//	    Sprite* physicsSprite = (Sprite*)b->GetUserData();
-//	    physicsSprite->setPosition(Point(b->GetPosition().x*32.0, b->GetPosition().y*32.0));
+	    Sprite* physicsSprite = (Sprite*)b->GetUserData();
+	    physicsSprite->setPosition(Point(b->GetPosition().x*PTM_RATIO, b->GetPosition().y*PTM_RATIO));
 /*	    if(physicsSprite->getTag() == 1)
 	    {
 		static int maxSpeed = 9.8;
@@ -231,7 +229,7 @@ void GamePlay::createWorldPhysics(TMXLayer* layer)
 	{
 	    auto tileSprite = layer->getTileAt(Point(x, y));
 	    if(tileSprite)
-		this->createPhysicsForTile(layer, x, y, 0.0f, 0.0f);
+		this->createPhysicsForTile(layer, x, y, 32.0f, 32.0f);
 	}
    }
 }
@@ -247,22 +245,25 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y, float width, 
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(
-	(p.x + (tileSize.width / 2.0f) ) / pixelPerMeter,
-	(p.y + (tileSize.height/ 2.0f) ) / pixelPerMeter);
+	(p.x + (tile->getContentSize().width / 2.0f) ) / pixelPerMeter,
+	(p.y + (tile->getContentSize().height/ 2.0f) ) / pixelPerMeter);
     bodyDef.userData = tile;
 
     b2Body *body = _world->CreateBody(&bodyDef);
 
     b2PolygonShape shape;
     shape.SetAsBox(
-	(tileSize.width/pixelPerMeter) * 0.5f * width,
-	(tileSize.height/pixelPerMeter) * 0.5f *height);
+	(tile->getContentSize().width/pixelPerMeter) * 0.5f,
+	(tile->getContentSize().height/pixelPerMeter) * 0.5f);
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
     fixtureDef.restitution = 0.0f;
+
+//    tile->setB2Body(body);
+//    tile->setPTMRatio(PTM_RATIO);
 
     b2Fixture *fixture;
     fixture = body->CreateFixture(&fixtureDef);

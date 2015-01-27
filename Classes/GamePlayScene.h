@@ -33,7 +33,7 @@ private:
     //Box2D World
     b2World *_world;
     //Box2D debugDraw.
-    GLESDebugDraw *_debugDraw;
+    GLESDebugDraw _debugDraw;
 
     cocos2d::CustomCommand _customCommand;
 
