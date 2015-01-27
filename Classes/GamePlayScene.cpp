@@ -155,10 +155,25 @@ bool GamePlay::init()
     return true;
 }
 
-void GamePlay::draw(Renderer *renderer, const Mat4 &transform, bool transformUpdated)
+void GamePlay::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 {
-    Node::draw(renderer, transform, transformUpdated);
+    Layer::draw(renderer, transform, flags);
+    _customCommand.init(_globalZOrder);
+    _customCommand.func = CC_CALLBACK_0(GamePlay::onDraw, this, transform, flags);
+    renderer->addCommand(&_customCommand);
+//    _world->DrawDebugData();
+}
+
+void GamePlay::onDraw(const Mat4 &transform, uint32_t flags)
+{
+    Director *director = Director::getInstance();
+    CCASSERT(nullptr != director, "Director is null when seting matrix stack");
+    director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
+    director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, transform);
+
     _world->DrawDebugData();
+    CHECK_GL_ERROR_DEBUG();
+    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
 
 void GamePlay::update(float dt)

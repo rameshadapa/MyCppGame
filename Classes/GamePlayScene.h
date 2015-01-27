@@ -24,7 +24,8 @@ public:
 
     void update(float dt);
 
-    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated);
+    void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags);
+    void onDraw(const cocos2d::Mat4 &transform, uint32_t flags);
 
     CREATE_FUNC(GamePlay);
 
@@ -33,6 +34,8 @@ private:
     b2World *_world;
     //Box2D debugDraw.
     GLESDebugDraw *_debugDraw;
+
+    cocos2d::CustomCommand _customCommand;
 
     //One onscreen TileMap & one Temparary tilemap.
     cocos2d::TMXTiledMap *tileMap;
