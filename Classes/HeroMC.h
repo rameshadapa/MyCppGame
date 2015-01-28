@@ -48,6 +48,8 @@ public:
     static HeroMC* create(const std::string& fileName);
 
     void SetPhysics(b2World *world);
+
+    void update(float delta);
 };
 
 #endif	// __HERO_MC__

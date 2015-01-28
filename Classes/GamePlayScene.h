@@ -18,9 +18,9 @@ public:
 
     virtual bool init();
 
-    void prepareWorldLayer();
+    void prepareWorldLayer(cocos2d::TMXTiledMap *map);
     void createWorldPhysics(cocos2d::TMXLayer* layer);
-    void createPhysicsForTile(cocos2d::TMXLayer *layer, int x, int y, float width, float height);
+    void createPhysicsForTile(cocos2d::TMXLayer *layer, int x, int y);
 
     void update(float dt);
 
