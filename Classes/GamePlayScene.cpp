@@ -48,8 +48,8 @@ bool GamePlay::init()
     _world->SetDebugDraw(&_debugDraw);
     uint32 flags = 0;
     flags += b2Draw::e_shapeBit;
-    flags += b2Draw::e_jointBit;
-    flags += b2Draw::e_centerOfMassBit;
+//    flags += b2Draw::e_jointBit;
+//    flags += b2Draw::e_centerOfMassBit;
 //    flags += b2Draw::e_pairBit;
 //    flags += b2Draw::e_shapeBit;
     _debugDraw.SetFlags(flags);
@@ -103,6 +103,8 @@ void GamePlay::update(float dt)
 
     _world->Step(dt, velocityIterations, positionIterations);
 
+    CCLog("Delta time::: %f", dt);
+
     for(b2Body *b = _world->GetBodyList(); b; b = b->GetNext())
     {
 	if(b->GetUserData())
@@ -148,16 +150,16 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y)
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(
-	p.x / pixelPerMeter,
-	p.y / pixelPerMeter);
+	p.x + tileSize.width/2,
+	p.y + tileSize.height/2);
     bodyDef.userData = tile;
 
     b2Body *body = _world->CreateBody(&bodyDef);
 
     b2PolygonShape shape;
     shape.SetAsBox(
-	(tileSize.width/pixelPerMeter) * 0.5f,
-	(tileSize.height/pixelPerMeter) * 0.5f);
+	tileSize.width*0.5f,
+	tileSize.height*0.5f);
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;

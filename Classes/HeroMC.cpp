@@ -4,7 +4,7 @@ USING_NS_CC;
 
 HeroMC::HeroMC(void)
 {
-    _velocity = 0;
+    _velocity = Vec2(0,0);
 //   heroSkeleton = SkeletonAnimation::createWithFile("mc/hero.json", "mc/hero.atlas", 0.5f);
 //   heroSkeleton->setScale(1.0);
 
@@ -32,12 +32,12 @@ void HeroMC::SetPhysics(b2World *world)
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(getPosition().x / PTM_RATIO, getPosition().y / PTM_RATIO);
+	bodyDef.position.Set(getPosition().x, getPosition().y);
       	bodyDef.userData = this;
 
 	b2Body *mcBody = world->CreateBody(&bodyDef);
 	b2PolygonShape mcShape;
-	mcShape.SetAsBox(getContentSize().width/2/PTM_RATIO, getContentSize().height/2/PTM_RATIO);
+	mcShape.SetAsBox(getContentSize().width*0.5f, getContentSize().height*0.5f);
 
 	b2FixtureDef mcFixture;
 	mcFixture.shape = &mcShape;
@@ -126,5 +126,6 @@ void HeroMC::update(float delta)
     _velocity = _velocity + gravityStep;
     Point velocityStep = _velocity * delta;
 
-    _position = _position + velocityStep;
+    this->setPosition(getPosition() + velocityStep);
+//    CCLog("Velocity [%f, %f]   Position [%f, %f]", _velocity.x, _velocity.y, _position.x, _position.y);
 }
