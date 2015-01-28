@@ -109,25 +109,6 @@ void GamePlay::update(float dt)
 	{
 	    Sprite* physicsSprite = (Sprite*)b->GetUserData();
 	    physicsSprite->update(dt);
-//	    physicsSprite->setPosition(Point(b->GetPosition().x*PTM_RATIO, b->GetPosition().y*PTM_RATIO));
-/*	    if(physicsSprite->getTag() == 1)
-	    {
-		static int maxSpeed = 9.8;
-		b2Vec2 velocity = b->GetLinearVelocity();
-		float32 speed = velocity.Length();
-
-		if( speed > maxSpeed )
-		{
-		    b->SetLinearDamping(0.5);
-		} else if( speed < maxSpeed )
-		{
-		    b->SetLinearDamping(0.0);
-		}
-   	    }
-	    if(physicsSprite->getTag() == 0)
-	    {
-		
-	    }*/
 	}
     }
 }
@@ -141,7 +122,6 @@ void GamePlay::prepareWorldLayer(TMXTiledMap *map)
 	    this->createWorldPhysics(layer);
     }
 }
-
 
 void GamePlay::createWorldPhysics(TMXLayer* layer)
 {
