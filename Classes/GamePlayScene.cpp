@@ -55,7 +55,7 @@ bool GamePlay::init()
     _debugDraw.SetFlags(flags);
 
     tileMap = TMXTiledMap::create("level1.tmx");
-    tileMap->setPosition(Point(origin.x - size.width/2, origin.y));
+    tileMap->setPosition(Point(origin.x, origin.y));
     if(tileMap != nullptr)
         this->addChild(tileMap, -1);
 
@@ -103,14 +103,14 @@ void GamePlay::update(float dt)
 
     _world->Step(dt, velocityIterations, positionIterations);
 
-    CCLog("Delta time::: %f", dt);
-
     for(b2Body *b = _world->GetBodyList(); b; b = b->GetNext())
     {
 	if(b->GetUserData())
 	{
 	    Sprite* physicsSprite = (Sprite*)b->GetUserData();
-	    physicsSprite->update(dt);
+	    b2Vec2 position = b->GetPosition();
+	    physicsSprite->setPosition(position.x, position.y);
+//	    physicsSprite->update(dt);
 	}
     }
 }
