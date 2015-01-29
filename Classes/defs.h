@@ -1,6 +1,6 @@
 #ifndef __DEFS_H__
 #define __DEFS_H__
 
-#define GRAVITY_IN_PIXELS	(-9.8f)
+#define GRAVITY_IN_PIXELS	(-198.0f)
 
 #endif		// __DEFS_H__

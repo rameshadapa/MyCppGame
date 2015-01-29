@@ -38,7 +38,7 @@ bool GamePlay::init()
     Point origin = Director::getInstance()->getVisibleOrigin();
 
     b2Vec2 gravity;
-    gravity.Set(0.0f, -9.8f);
+    gravity.Set(0.0f, GRAVITY_IN_PIXELS);
 
     _world = new b2World(gravity);
     _world->SetAllowSleeping(true);
@@ -54,6 +54,7 @@ bool GamePlay::init()
     _debugDraw.SetFlags(flags);
 
     tileMap = TMXTiledMap::create("level1.tmx");
+    CCLOG("Origin::: [%d %d]", origin.x, origin.y);
     tileMap->setPosition(Point(origin.x, origin.y));
     if(tileMap != nullptr)
         this->addChild(tileMap, -1);
@@ -64,7 +65,7 @@ bool GamePlay::init()
     this->addChild(hudLayer, 10);
 
     mainChar = HeroMC::create("mc.png");
-    mainChar->setPosition(Point(origin.x+mainChar->getContentSize().width/2, origin.y+size.height-mainChar->getContentSize().height/2));
+    mainChar->setPosition(Point(origin.x+mainChar->getContentSize().width/2.0f, origin.y+size.height - mainChar->getContentSize().height/2.0f));
 
     this->addChild(mainChar);
 
@@ -107,9 +108,12 @@ void GamePlay::update(float dt)
     {
 	if(b->GetUserData())
 	{
-	    Sprite* physicsSprite = (Sprite*)b->GetUserData();
-	    b2Vec2 position = b->GetPosition();
-	    physicsSprite->setPosition(position.x + physicsSprite->getContentSize().width/2, position.y + physicsSprite->getContentSize().height/2);
+	    if(b->GetType() == b2_dynamicBody)
+	    {
+	    	Sprite* physicsSprite = (Sprite*)b->GetUserData();
+	    	b2Vec2 position = b->GetPosition();
+	    	physicsSprite->setPosition(position.x, position.y);
+	    }
 //	    physicsSprite->update(dt);
 	}
     }
@@ -150,8 +154,8 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y)
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(
-	p.x - tileSize.width/2,
-	p.y - tileSize.height/2);
+	p.x + tileSize.width/2.0f,
+	p.y + tileSize.height/2.0f);
     bodyDef.userData = tile;
 
     b2Body *body = _world->CreateBody(&bodyDef);
