@@ -3,7 +3,6 @@
 #include "ShaderLayer.h"
 #include "ShaderNode.h"
 #include "HeroMC.h"
-#include "TiledBodyCreator.h"
 
 USING_NS_CC;
 
@@ -59,9 +58,10 @@ bool GamePlay::init()
     if(tileMap != nullptr)
         this->addChild(tileMap, -1);
 
-//    TiledBodyCreator::initCollisionMap(tileMap, _world);
-
     prepareWorldLayer(tileMap);
+
+    auto hudLayer = HUDLayer::create();
+    this->addChild(hudLayer, 10);
 
     mainChar = HeroMC::create("mc.png");
     mainChar->setPosition(Point(origin.x+mainChar->getContentSize().width/2, origin.y+size.height-mainChar->getContentSize().height/2));
@@ -109,7 +109,7 @@ void GamePlay::update(float dt)
 	{
 	    Sprite* physicsSprite = (Sprite*)b->GetUserData();
 	    b2Vec2 position = b->GetPosition();
-	    physicsSprite->setPosition(position.x, position.y);
+	    physicsSprite->setPosition(position.x + physicsSprite->getContentSize().width/2, position.y + physicsSprite->getContentSize().height/2);
 //	    physicsSprite->update(dt);
 	}
     }
@@ -150,8 +150,8 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y)
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(
-	p.x + tileSize.width/2,
-	p.y + tileSize.height/2);
+	p.x - tileSize.width/2,
+	p.y - tileSize.height/2);
     bodyDef.userData = tile;
 
     b2Body *body = _world->CreateBody(&bodyDef);

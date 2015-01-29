@@ -122,7 +122,7 @@ set(GAME_SRC
   Classes/MainMenuScene.cpp
   Classes/GamePlayScene.cpp
   Classes/HeroMC.cpp
-  Classes/TiledBodyCreator.cpp
+  Classes/HUDLayer.cpp
   Classes/GLES-Render.cpp
   Classes/ShaderNode.cpp
   Classes/ShaderLayer.cpp

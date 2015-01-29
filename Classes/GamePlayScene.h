@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "GameOSD.h"
 #include "HeroMC.h"
+#include "HUDLayer.h"
 #include "GLES-Render.h"
 #include "Box2D/Box2D.h"
 
@@ -43,6 +44,7 @@ private:
 
     //MainCharacter pointer.
     HeroMC *mainChar;
+    HUDLayer *hud;
 };
 
 #endif	// __GAMEPLAY_SCENE_H__
