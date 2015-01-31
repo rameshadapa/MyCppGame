@@ -54,7 +54,7 @@ bool GamePlay::init()
     _debugDraw.SetFlags(flags);
 
     tileMap = TMXTiledMap::create("level1.tmx");
-    CCLOG("Origin::: [%d %d]", origin.x, origin.y);
+    CCLog("Origin::: [%d %d]", origin.x, origin.y);
     tileMap->setPosition(Point(origin.x, origin.y));
     if(tileMap != nullptr)
         this->addChild(tileMap, -1);
@@ -113,6 +113,11 @@ void GamePlay::update(float dt)
 	    	Sprite* physicsSprite = (Sprite*)b->GetUserData();
 	    	b2Vec2 position = b->GetPosition();
 	    	physicsSprite->setPosition(position.x, position.y);
+
+		if(HUDLayer::moveRight)
+		{
+		    CCLog("Moving left.....");
+		}
 	    }
 //	    physicsSprite->update(dt);
 	}

@@ -17,6 +17,12 @@ public:
 private:
 //    static cocos2d::Map<int, cocos2d::Vec2*> s_map;
 
+public:
+    static constexpr bool moveLeft	= false;
+    static constexpr bool moveRight	= false;
+    static constexpr bool moveTop	= false;
+    static constexpr bool moveBottom	= false;
+
 };
 
 #endif	// __HUDLAYER_H__

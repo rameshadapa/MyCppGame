@@ -19,6 +19,10 @@ class TouchPoint : public Node
 };
 
 static Map<int, TouchPoint*> s_map;
+//bool HUDLayer::moveLeft 	= false;
+//bool HUDLayer::moveRight	= false;
+//bool HUDLayer::moveTop	= false;
+//bool HUDLayer::moveBottom	= false;
 
 bool HUDLayer::init()
 {
@@ -37,11 +41,12 @@ bool HUDLayer::init()
 
 void HUDLayer::onTouchesBegan(const vector<Touch*> &touches, Event *event)
 {
-    CCLOG("Multi touch began is calling.");
+    CCLog("Multi touch began is calling.");
     for( auto &item: touches )
     {
 	auto touch = item;
 	auto location = touch->getLocation();
+	CCLog("Touch Location:: [%f %f]", location.x, location.y);
 	auto touchPoint = TouchPoint::touchPointWithArea(location);
 	s_map.insert(touch->getID(), touchPoint);
     }
@@ -49,7 +54,7 @@ void HUDLayer::onTouchesBegan(const vector<Touch*> &touches, Event *event)
 
 void HUDLayer::onTouchesMoved(const vector<Touch*> &touches, Event *event)
 {
-    CCLOG("Multi touch moved is calling.");
+    CCLog("Multi touch moved is calling.");
     for( auto &item: touches )
     {
 	auto touch = item;
@@ -62,7 +67,7 @@ void HUDLayer::onTouchesMoved(const vector<Touch*> &touches, Event *event)
 
 void HUDLayer::onTouchesEnded(const vector<Touch*> &touches, Event *event)
 {
-    CCLOG("Multi touch ended is calling.");
+    CCLog("Multi touch ended is calling.");
     for( auto &item: touches )
     {
 	auto touch = item;
@@ -72,6 +77,6 @@ void HUDLayer::onTouchesEnded(const vector<Touch*> &touches, Event *event)
 
 void HUDLayer::onTouchesCancelled(const vector<Touch*> &touches, Event *event)
 {
-    CCLOG("Multi touch cancelled is calling.");
+    CCLog("Multi touch cancelled is calling.");
     onTouchesEnded(touches, event);
 }
