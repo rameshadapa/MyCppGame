@@ -2,10 +2,12 @@
 #define __HUDLAYER_H__
 
 #include "cocos2d.h"
+#include "defs.h"
 
 class HUDLayer : public cocos2d::Layer
 {
 public:
+//    static cocos2d::Scene* createScene();
     virtual bool init();
 
     void onTouchesBegan(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event *event);
@@ -13,19 +15,22 @@ public:
     void onTouchesCancelled(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event *event);
     void onTouchesMoved(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event *event);
 
+    void leftPress(cocos2d::Ref *sender);
+    void rightPress(cocos2d::Ref *sender);
+
     CREATE_FUNC(HUDLayer);
 private:
     cocos2d::Sprite *leftButton;
     cocos2d::Sprite *rightButton;
 
-    cocos2d::Sprite *mineTool;
-    cocos2d::Sprite *jumpButton;
-    cocos2d::Sprite *attackButton;
+    cocos2d::MenuItemImage *mineTool;
+    cocos2d::MenuItemImage *jumpButton;
+    cocos2d::MenuItemImage *attackButton;
 //    static cocos2d::Map<int, cocos2d::Vec2*> s_map;
 
 public:
-    static constexpr bool moveLeft	= false;
-    static constexpr bool moveRight	= false;
+    static bool moveLeft;//	= false;
+    static bool moveRight;//	= false;
 
     static constexpr bool pressMine	= false;
     static constexpr bool pressJump	= false;

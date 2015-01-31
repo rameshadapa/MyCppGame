@@ -110,14 +110,16 @@ void GamePlay::update(float dt)
 	{
 	    if(b->GetType() == b2_dynamicBody)
 	    {
-	    	Sprite* physicsSprite = (Sprite*)b->GetUserData();
-	    	b2Vec2 position = b->GetPosition();
-	    	physicsSprite->setPosition(position.x, position.y);
-
 		if(HUDLayer::moveRight)
 		{
-		    CCLOG("Moving left.....");
+//		    position.x += 5.0f;
+		    b->SetLinearVelocity(b2Vec2(32.0f, 0.0f));
+		    CCLog("Moving left.....");
 		}
+	    	Sprite* physicsSprite = (Sprite*)b->GetUserData();
+	    	b2Vec2 position = b->GetPosition();
+
+	    	physicsSprite->setPosition(position.x, position.y);
 	    }
 //	    physicsSprite->update(dt);
 	}
