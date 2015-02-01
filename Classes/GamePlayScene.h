@@ -2,6 +2,7 @@
 #define __GAMEPLAY_SCENE_H__
 
 #include "cocos2d.h"
+#include "ShaderNode.h"
 #include "GameOSD.h"
 #include "HeroMC.h"
 #include "HUDLayer.h"
@@ -35,6 +36,7 @@ private:
     b2World *_world;
     //Box2D debugDraw.
     GLESDebugDraw _debugDraw;
+    ShaderNode *mask;
 
     cocos2d::CustomCommand _customCommand;
 

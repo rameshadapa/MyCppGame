@@ -21,6 +21,7 @@ class TouchPoint : public Node
 static Map<int, TouchPoint*> s_map;
 bool HUDLayer::moveLeft = false;
 bool HUDLayer::moveRight = false;
+bool HUDLayer::pressJump = false;
 //bool HUDLayer::moveLeft 	= false;
 //bool HUDLayer::moveRight	= false;
 //bool HUDLayer::moveTop	= false;
@@ -40,6 +41,7 @@ bool HUDLayer::init()
 {
     if(Layer::init())
     {
+        Size size = Director::getInstance()->getVisibleSize();
         Point origin = Director::getInstance()->getVisibleOrigin();
 	auto listener = EventListenerTouchAllAtOnce::create();
 	listener->onTouchesBegan = CC_CALLBACK_2(HUDLayer::onTouchesBegan, this);
@@ -54,6 +56,9 @@ bool HUDLayer::init()
 
 	rightButton = Sprite::create("joystick.png");	//, "joystick.png", CC_CALLBACK_1(HUDLayer::rightPress, this));
 	rightButton->setPosition(Point(leftButton->getPosition().x + leftButton->getContentSize().width, leftButton->getPosition().y));
+
+	jumpButton = Sprite::create("joystick.png");
+	jumpButton->setPosition(Point(origin.x+size.width-jumpButton->getContentSize().width/2.0f, origin.y + jumpButton->getContentSize().height*3.0f/2.0f));
 	
 /*	auto menu = Menu::create(leftButton, NULL);
 	menu->setPosition(Point::ZERO);
@@ -61,6 +66,7 @@ bool HUDLayer::init()
 */
 	this->addChild(leftButton, 1);
 	this->addChild(rightButton, 1);
+	this->addChild(jumpButton, 1);
 	return true;
     }
     return false;
@@ -89,7 +95,21 @@ void HUDLayer::onTouchesBegan(const vector<Touch*> &touches, Event *event)
 		 && location.y>(leftButton->getPosition().y - leftButton->getContentSize().height/2.0f)
 		 && location.y<(leftButton->getPosition().y + leftButton->getContentSize().height/2.0f))
 	{
+	    HUDLayer::moveLeft = true;
+	}
+	if(location.x>(rightButton->getPosition().x - rightButton->getContentSize().width/2.0f)
+		 && location.x<(rightButton->getPosition().x + rightButton->getContentSize().width/2.0f)
+		 && location.y>(rightButton->getPosition().y - rightButton->getContentSize().height/2.0f)
+		 && location.y<(rightButton->getPosition().y + rightButton->getContentSize().height/2.0f))
+	{
 	    HUDLayer::moveRight = true;
+	}
+	if(location.x>(jumpButton->getPosition().x - jumpButton->getContentSize().width/2.0f)
+		 && location.x<(jumpButton->getPosition().x + jumpButton->getContentSize().width/2.0f)
+		 && location.y>(jumpButton->getPosition().y - jumpButton->getContentSize().height/2.0f)
+		 && location.y<(jumpButton->getPosition().y + jumpButton->getContentSize().height/2.0f))
+	{
+	    HUDLayer::pressJump = true;
 	}
 	auto touchPoint = TouchPoint::touchPointWithArea(location);
 	s_map.insert(touch->getID(), touchPoint);
@@ -103,6 +123,39 @@ void HUDLayer::onTouchesMoved(const vector<Touch*> &touches, Event *event)
     {
 	auto touch = item;
 	auto location = touch->getLocation();
+	if(location.x>(leftButton->getPosition().x - leftButton->getContentSize().width/2.0f)
+		 && location.x<(leftButton->getPosition().x + leftButton->getContentSize().width/2.0f)
+		 && location.y>(leftButton->getPosition().y - leftButton->getContentSize().height/2.0f)
+		 && location.y<(leftButton->getPosition().y + leftButton->getContentSize().height/2.0f))
+	{
+	    HUDLayer::moveLeft = true;
+	}
+	else
+	{
+	    HUDLayer::moveLeft = false;
+	}
+	if(location.x>(rightButton->getPosition().x - rightButton->getContentSize().width/2.0f)
+		 && location.x<(rightButton->getPosition().x + rightButton->getContentSize().width/2.0f)
+		 && location.y>(rightButton->getPosition().y - rightButton->getContentSize().height/2.0f)
+		 && location.y<(rightButton->getPosition().y + rightButton->getContentSize().height/2.0f))
+	{
+	    HUDLayer::moveRight = true;
+	}
+	else
+	{
+	    HUDLayer::moveRight = false;
+	}
+	if(location.x>(jumpButton->getPosition().x - jumpButton->getContentSize().width/2.0f)
+		 && location.x<(jumpButton->getPosition().x + jumpButton->getContentSize().width/2.0f)
+		 && location.y>(jumpButton->getPosition().y - jumpButton->getContentSize().height/2.0f)
+		 && location.y<(jumpButton->getPosition().y + jumpButton->getContentSize().height/2.0f))
+	{
+	    HUDLayer::pressJump = true;
+	}
+	else
+	{
+	    HUDLayer::pressJump = false;
+	}
 	auto touchPoint = TouchPoint::touchPointWithArea(location);
 	s_map.erase(touch->getID());
 	s_map.insert(touch->getID(), touchPoint);
@@ -116,12 +169,26 @@ void HUDLayer::onTouchesEnded(const vector<Touch*> &touches, Event *event)
     {
 	auto touch = item;
 	auto location = touch->getLocation();
-	if(location.x>(leftButton->getPosition().x - leftButton->getContentSize().width/2.0f)
-		 && location.x<(leftButton->getPosition().x + leftButton->getContentSize().width/2.0f)
-		 && location.y>(leftButton->getPosition().y - leftButton->getContentSize().height/2.0f)
-		 && location.y<(leftButton->getPosition().y + leftButton->getContentSize().height/2.0f))
+//	if(location.x>(leftButton->getPosition().x - leftButton->getContentSize().width/2.0f)
+//		 && location.x<(leftButton->getPosition().x + leftButton->getContentSize().width/2.0f)
+//		 && location.y>(leftButton->getPosition().y - leftButton->getContentSize().height/2.0f)
+//		 && location.y<(leftButton->getPosition().y + leftButton->getContentSize().height/2.0f))
 	{
 	    HUDLayer::moveRight = false;
+	}
+//	if(location.x>(rightButton->getPosition().x - rightButton->getContentSize().width/2.0f)
+//		 && location.x<(rightButton->getPosition().x + rightButton->getContentSize().width/2.0f)
+//		 && location.y>(rightButton->getPosition().y - rightButton->getContentSize().height/2.0f)
+//		 && location.y<(rightButton->getPosition().y + rightButton->getContentSize().height/2.0f))
+	{
+	    HUDLayer::moveRight = false;
+	}
+//	if(location.x>(jumpButton->getPosition().x - jumpButton->getContentSize().width/2.0f)
+//		 && location.x<(jumpButton->getPosition().x + jumpButton->getContentSize().width/2.0f)
+//		 && location.y>(jumpButton->getPosition().y - jumpButton->getContentSize().height/2.0f)
+//		 && location.y<(jumpButton->getPosition().y + jumpButton->getContentSize().height/2.0f))
+	{
+	    HUDLayer::pressJump = false;
 	}
 	s_map.erase(touch->getID());
     }

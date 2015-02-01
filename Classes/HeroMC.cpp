@@ -1,4 +1,5 @@
 #include "HeroMC.h"
+#include "HUDLayer.h"
 
 USING_NS_CC;
 
@@ -35,7 +36,7 @@ void HeroMC::SetPhysics(b2World *world)
 	bodyDef.position.Set(getPosition().x, getPosition().y);
       	bodyDef.userData = this;
 
-	b2Body *mcBody = world->CreateBody(&bodyDef);
+	mcBody = world->CreateBody(&bodyDef);
 	b2PolygonShape mcShape;
 	mcShape.SetAsBox(getContentSize().width*0.5f, getContentSize().height*0.5f);
 
@@ -120,12 +121,21 @@ void HeroMC::SetMineDirection(unsigned char mineDirection)
 
 void HeroMC::update(float delta)
 {
-    Point gravity = Point(0.0, GRAVITY_IN_PIXELS);
+/*    Point gravity = Point(0.0, GRAVITY_IN_PIXELS);
     Point gravityStep = gravity * delta;
 
     _velocity = _velocity + gravityStep;
     Point velocityStep = _velocity * delta;
-
-    this->setPosition(getPosition() + velocityStep);
+*/
+    if(HUDLayer::moveRight)
+    {
+	mcBody->SetLinearVelocity(b2Vec2(48.0f, 0.0f));
+    }
+    if(HUDLayer::pressJump)
+    {
+	mcBody->SetLinearVelocity(b2Vec2(0.0f, -GRAVITY_IN_PIXELS));
+    }
+    b2Vec2 position = mcBody->GetPosition();
+    this->setPosition(position.x, position.y);
 //    CCLog("Velocity [%f, %f]   Position [%f, %f]", _velocity.x, _velocity.y, _position.x, _position.y);
 }

@@ -4,8 +4,8 @@ USING_NS_CC;
 
 enum
 {
-	SIZE_X = 960,
-	SIZE_Y = 640,
+	SIZE_X = 960*2,
+	SIZE_Y = 640*2,
 };
 
 ShaderNode::ShaderNode() : _center(Vec2(0.0f, 0.0f)),

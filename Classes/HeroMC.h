@@ -25,6 +25,7 @@ class HeroMC : public cocos2d::Sprite, public GameOSD
     cocos2d::Vec2 _position;
 
     Sprite *mainChar;
+    b2Body *mcBody;
 
 public:
     HeroMC(void);

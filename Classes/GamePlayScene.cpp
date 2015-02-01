@@ -1,7 +1,6 @@
 #include "GamePlayScene.h"
 #include "GameOSD.h"
 #include "ShaderLayer.h"
-#include "ShaderNode.h"
 #include "HeroMC.h"
 
 USING_NS_CC;
@@ -71,6 +70,10 @@ bool GamePlay::init()
 
     mainChar->SetPhysics(_world);
 
+    mask = ShaderNode::shaderNodeWithVertex("", "game.glsl");
+    mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
+    this->addChild(mask);
+
     scheduleUpdate();
 
     return true;
@@ -92,7 +95,7 @@ void GamePlay::onDraw(const Mat4 &transform, uint32_t flags)
     director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, transform);
 
-    _world->DrawDebugData();
+//    _world->DrawDebugData();
     CHECK_GL_ERROR_DEBUG();
     director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
@@ -110,20 +113,21 @@ void GamePlay::update(float dt)
 	{
 	    if(b->GetType() == b2_dynamicBody)
 	    {
-		if(HUDLayer::moveRight)
+/*		if(HUDLayer::moveRight)
 		{
 //		    position.x += 5.0f;
 		    b->SetLinearVelocity(b2Vec2(32.0f, 0.0f));
 		    CCLog("Moving left.....");
-		}
+		}*/
 	    	Sprite* physicsSprite = (Sprite*)b->GetUserData();
-	    	b2Vec2 position = b->GetPosition();
+/*	    	b2Vec2 position = b->GetPosition();
 
-	    	physicsSprite->setPosition(position.x, position.y);
+	    	physicsSprite->setPosition(position.x, position.y);*/
+	    	physicsSprite->update(dt);
 	    }
-//	    physicsSprite->update(dt);
 	}
     }
+    mask->setPosition(Size(mainChar->getPosition().x, mainChar->getPosition().y));
 }
 
 void GamePlay::prepareWorldLayer(TMXTiledMap *map)
