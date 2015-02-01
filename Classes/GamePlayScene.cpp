@@ -74,6 +74,13 @@ bool GamePlay::init()
     mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
     this->addChild(mask);
 
+    _camera = Camera::createOrthographic(size.width, size.height, 1, 1000);
+    _camera->setCameraFlag(CameraFlag::USER1);
+    auto eye = Vec3(0, 0, 100);
+    _camera->setPosition3D(eye);	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 100));
+    _camera->lookAt(Vec3(0, 0, 0), Vec3(0, 1, 0));	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 0), Vec3(0, 1, 0));
+    this->addChild(_camera, 2);
+
     scheduleUpdate();
 
     return true;

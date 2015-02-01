@@ -37,6 +37,7 @@ private:
     //Box2D debugDraw.
     GLESDebugDraw _debugDraw;
     ShaderNode *mask;
+    cocos2d::Camera *_camera;
 
     cocos2d::CustomCommand _customCommand;
 
