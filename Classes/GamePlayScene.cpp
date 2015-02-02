@@ -74,16 +74,35 @@ bool GamePlay::init()
     mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
     this->addChild(mask);
 
-    _camera = Camera::createOrthographic(size.width, size.height, 1, 1000);
+    setCenterOfScreen(mainChar->getPosition());
+
+/*    _camera = Camera::createOrthographic(size.width, size.height, 1, 1000);
     _camera->setCameraFlag(CameraFlag::USER1);
-    auto eye = Vec3(0, 0, 100);
+    auto eye = Vec3(0.0, 100, 100);
     _camera->setPosition3D(eye);	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 100));
     _camera->lookAt(Vec3(0, 0, 0), Vec3(0, 1, 0));	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 0), Vec3(0, 1, 0));
-    this->addChild(_camera, 2);
-
+    this->addChild(_camera);
+*/
     scheduleUpdate();
 
     return true;
+}
+
+void GamePlay::setCenterOfScreen(Point position)
+{
+    Size size = Director::getInstance()->getVisibleSize();
+
+    int x = MAX(position.x, size.width/2.0f);
+    int y = MAX(position.y, size.height/2.0f);
+
+    x = MIN(x, tileMap->getMapSize().width * tileMap->getTileSize().width - size.width/2.0f);
+    y = MIN(y, tileMap->getMapSize().width * tileMap->getTileSize().width - size.height/2.0f); 
+
+    Point camPoint = Point(x, y);
+
+    Point centerOfScreen = Point(size.width/2.0f, size.height/2.0f);
+    Point diff = Point(centerOfScreen, camPoint);
+    this->setPosition(diff);
 }
 
 void GamePlay::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)

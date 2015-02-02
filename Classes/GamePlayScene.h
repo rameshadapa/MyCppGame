@@ -23,6 +23,7 @@ public:
     void prepareWorldLayer(cocos2d::TMXTiledMap *map);
     void createWorldPhysics(cocos2d::TMXLayer* layer);
     void createPhysicsForTile(cocos2d::TMXLayer *layer, int x, int y);
+    void setCenterOfScreen(cocos2d::Point position);
 
     void update(float dt);
 
