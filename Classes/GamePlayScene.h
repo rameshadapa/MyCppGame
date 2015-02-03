@@ -22,7 +22,7 @@ public:
     void prepareWorldLayer(cocos2d::TMXTiledMap *map);
     void createWorldPhysics(cocos2d::TMXLayer* layer);
     void createPhysicsForTile(cocos2d::TMXLayer *layer, int x, int y);
-    void setCenterOfScreen(cocos2d::Point position);
+    void setViewPoint(cocos2d::Point position);
 
     void update(float dt);
 
@@ -39,10 +39,11 @@ private:
     ShaderNode *mask;
 
     cocos2d::CustomCommand _customCommand;
+    cocos2d::Camera *_camera;
 
     //One onscreen TileMap & one Temparary tilemap.
     cocos2d::TMXTiledMap *tileMap;
-    cocos2d::TMXTiledMap *tmpMap;
+//    cocos2d::TMXTiledMap *tmpMap;
 
     //MainCharacter pointer.
     HeroMC *mainChar;

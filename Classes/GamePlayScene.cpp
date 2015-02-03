@@ -71,21 +71,21 @@ bool GamePlay::init()
     mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
     this->addChild(mask, 6);
 
-    setCenterOfScreen(mainChar->getPosition());
+//    setViewPoint(mainChar->getPosition());
 
-/*    _camera = Camera::createOrthographic(size.width, size.height, 1, 1000);
+    _camera = Camera::createOrthographic(size.width, size.height, 1, 1000);
     _camera->setCameraFlag(CameraFlag::USER1);
-    auto eye = Vec3(0.0, 100, 100);
+    auto eye = Vec3(0.0, 0.0, 100.0);
     _camera->setPosition3D(eye);	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 100));
     _camera->lookAt(Vec3(0, 0, 0), Vec3(0, 1, 0));	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 0), Vec3(0, 1, 0));
     this->addChild(_camera);
-*/
+
     scheduleUpdate();
 
     return true;
 }
 
-void GamePlay::setCenterOfScreen(Point position)
+void GamePlay::setViewPoint(Point position)
 {
     Size size = Director::getInstance()->getVisibleSize();
 
@@ -136,16 +136,7 @@ void GamePlay::update(float dt)
 	{
 	    if(b->GetType() == b2_dynamicBody)
 	    {
-/*		if(HUDLayer::moveRight)
-		{
-//		    position.x += 5.0f;
-		    b->SetLinearVelocity(b2Vec2(32.0f, 0.0f));
-		    CCLog("Moving left.....");
-		}*/
 	    	Sprite* physicsSprite = (Sprite*)b->GetUserData();
-/*	    	b2Vec2 position = b->GetPosition();
-
-	    	physicsSprite->setPosition(position.x, position.y);*/
 	    	physicsSprite->update(dt);
 	    }
 	}
