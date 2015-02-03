@@ -5,7 +5,6 @@
 #include "ShaderNode.h"
 #include "GameOSD.h"
 #include "HeroMC.h"
-#include "HUDLayer.h"
 #include "GLES-Render.h"
 #include "Box2D/Box2D.h"
 
@@ -16,7 +15,7 @@ public:
     GamePlay();
     ~GamePlay();
 
-    static cocos2d::Scene* createScene();
+//    static cocos2d::Scene* createScene();
 
     virtual bool init();
 
@@ -38,7 +37,6 @@ private:
     //Box2D debugDraw.
     GLESDebugDraw _debugDraw;
     ShaderNode *mask;
-    cocos2d::Camera *_camera;
 
     cocos2d::CustomCommand _customCommand;
 
@@ -48,7 +46,6 @@ private:
 
     //MainCharacter pointer.
     HeroMC *mainChar;
-    HUDLayer *hud;
 };
 
 #endif	// __GAMEPLAY_SCENE_H__

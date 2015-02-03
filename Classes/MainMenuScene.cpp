@@ -1,5 +1,5 @@
 #include "MainMenuScene.h"
-#include "GamePlayScene.h"
+#include "GameManagerScene.h"
 
 USING_NS_CC;
 
@@ -84,7 +84,7 @@ void MainMenu::menuCloseCallback(Ref* pSender)
     return;
 #endif
 
-    auto scene = GamePlay::createScene();
+    auto scene = GameManager::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(1.2f, scene));
 
 //    Director::getInstance()->end();

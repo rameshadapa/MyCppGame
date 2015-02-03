@@ -13,7 +13,7 @@ GamePlay::~GamePlay()
 {
     delete _world;
 }
-
+/*
 Scene* GamePlay::createScene()
 {
     auto scene = Scene::create();
@@ -24,7 +24,7 @@ Scene* GamePlay::createScene()
 
     return scene;
 }
-
+*/
 bool GamePlay::init()
 {
 
@@ -60,19 +60,16 @@ bool GamePlay::init()
 
     prepareWorldLayer(tileMap);
 
-    auto hudLayer = HUDLayer::create();
-    this->addChild(hudLayer, 10);
-
     mainChar = HeroMC::create("mc.png");
     mainChar->setPosition(Point(origin.x+mainChar->getContentSize().width/2.0f, origin.y+size.height - mainChar->getContentSize().height/2.0f));
 
-    this->addChild(mainChar);
+    this->addChild(mainChar, 5);
 
     mainChar->SetPhysics(_world);
 
     mask = ShaderNode::shaderNodeWithVertex("", "game.glsl");
     mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
-    this->addChild(mask);
+    this->addChild(mask, 6);
 
     setCenterOfScreen(mainChar->getPosition());
 

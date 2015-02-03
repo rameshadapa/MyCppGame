@@ -120,6 +120,7 @@ set(GAME_SRC
   Classes/GameOSD.cpp
   Classes/SplashScreenScene.cpp
   Classes/MainMenuScene.cpp
+  Classes/GameManagerScene.cpp
   Classes/GamePlayScene.cpp
   Classes/HeroMC.cpp
   Classes/HUDLayer.cpp
