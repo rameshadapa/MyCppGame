@@ -131,6 +131,10 @@ void HeroMC::update(float delta)
     {
 	mcBody->SetLinearVelocity(b2Vec2(-GRAVITY_IN_PIXELS/2.0f, 0.0f));
     }
+    if(HUDLayer::moveLeft)
+    {
+	mcBody->SetLinearVelocity(b2Vec2(GRAVITY_IN_PIXELS/2.0f, 0.0f));
+    }
     if(HUDLayer::pressJump)
     {
 	mcBody->SetLinearVelocity(b2Vec2(0.0f, -GRAVITY_IN_PIXELS));

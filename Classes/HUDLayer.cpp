@@ -174,7 +174,7 @@ void HUDLayer::onTouchesEnded(const vector<Touch*> &touches, Event *event)
 //		 && location.y>(leftButton->getPosition().y - leftButton->getContentSize().height/2.0f)
 //		 && location.y<(leftButton->getPosition().y + leftButton->getContentSize().height/2.0f))
 	{
-	    HUDLayer::moveRight = false;
+	    HUDLayer::moveLeft = false;
 	}
 //	if(location.x>(rightButton->getPosition().x - rightButton->getContentSize().width/2.0f)
 //		 && location.x<(rightButton->getPosition().x + rightButton->getContentSize().width/2.0f)

@@ -73,12 +73,14 @@ bool GamePlay::init()
 
 //    setViewPoint(mainChar->getPosition());
 
-    _camera = Camera::createOrthographic(size.width, size.height, 1, 1000);
+//    _camera = Camera::createOrthographic(size.width, size.height, 0, 1000);
+    _camera = Camera::createPerspective(60.0f, (GLfloat)size.width/size.height, 1, 1000);
     _camera->setCameraFlag(CameraFlag::USER1);
-    auto eye = Vec3(0.0, 0.0, 100.0);
+    auto eye = Vec3(0.0f, 100.0f, 100.0f);
     _camera->setPosition3D(eye);	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 100));
-    _camera->lookAt(Vec3(0, 0, 0), Vec3(0, 1, 0));	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 0), Vec3(0, 1, 0));
-    this->addChild(_camera);
+    _camera->lookAt(Vec3(0, 0, 0), Vec3(0.0f, 1.0f, 0.0f));	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 0), Vec3(0, 1, 0));
+    _camera->retain();
+    this->addChild(_camera, 10);
 
     scheduleUpdate();
 
@@ -118,7 +120,7 @@ void GamePlay::onDraw(const Mat4 &transform, uint32_t flags)
     director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, transform);
 
-//    _world->DrawDebugData();
+    _world->DrawDebugData();
     CHECK_GL_ERROR_DEBUG();
     director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
@@ -127,6 +129,8 @@ void GamePlay::update(float dt)
 {
     int velocityIterations = 8;
     int positionIterations = 2;
+
+    Size size = Director::getInstance()->getVisibleSize();
 
     _world->Step(dt, velocityIterations, positionIterations);
 
@@ -142,6 +146,10 @@ void GamePlay::update(float dt)
 	}
     }
     mask->setPosition(Size(mainChar->getPosition().x, mainChar->getPosition().y));
+
+    float cameraX, cameraY, cameraZ;
+    float eyeX, eyeY, eyeZ;
+    
 }
 
 void GamePlay::prepareWorldLayer(TMXTiledMap *map)
