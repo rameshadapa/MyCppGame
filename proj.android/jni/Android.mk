@@ -12,9 +12,18 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp
+  		   ../../Classes/src/GameOSD.cpp \
+  		   ../../Classes/src/SplashScreenScene.cpp \
+  		   ../../Classes/src/MainMenuScene.cpp \
+  		   ../../Classes/src/GameManagerScene.cpp \
+  		   ../../Classes/src/GamePlayScene.cpp \
+  		   ../../Classes/src/GameCharacter.cpp	\
+  		   ../../Classes/src/HeroMC.cpp \
+  		   ../../Classes/src/HUDLayer.cpp \
+  		   ../../Classes/src/GLES-Render.cpp \
+  		   ../../Classes/src/ShaderNode.cpp 
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes/inc
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END

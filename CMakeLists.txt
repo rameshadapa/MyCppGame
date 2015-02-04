@@ -112,27 +112,27 @@ include_directories(
   ${COCOS2D_ROOT}/cocos
   ${COCOS2D_ROOT}/external
   ${COCOS2D_ROOT}/cocos/editor-support
-  Classes
+  Classes/inc
 )
 
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-  Classes/GameOSD.cpp
-  Classes/SplashScreenScene.cpp
-  Classes/MainMenuScene.cpp
-  Classes/GameManagerScene.cpp
-  Classes/GamePlayScene.cpp
-  Classes/GameCharacter.cpp
-  Classes/HeroMC.cpp
-  Classes/HUDLayer.cpp
-  Classes/GLES-Render.cpp
-  Classes/ShaderNode.cpp
+  Classes/src/AppDelegate.cpp
+  Classes/src/GameOSD.cpp
+  Classes/src/SplashScreenScene.cpp
+  Classes/src/MainMenuScene.cpp
+  Classes/src/GameManagerScene.cpp
+  Classes/src/GamePlayScene.cpp
+  Classes/src/GameCharacter.cpp
+  Classes/src/HeroMC.cpp
+  Classes/src/HUDLayer.cpp
+  Classes/src/GLES-Render.cpp
+  Classes/src/ShaderNode.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS
-  Classes/AppDelegate.h
-  Classes/HelloWorldScene.h
+  Classes/inc/AppDelegate.h
+  Classes/inc/HelloWorldScene.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
