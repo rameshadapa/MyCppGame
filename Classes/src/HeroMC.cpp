@@ -7,7 +7,7 @@ HeroMC::HeroMC(void)
 {
 //   heroSkeleton = SkeletonAnimation::createWithFile("mc/hero.json", "mc/hero.atlas", 0.5f);
 //   heroSkeleton->setScale(1.0);
-
+    setType(CHAR_TYPE_MC);
 }
 
 HeroMC::~HeroMC()
@@ -16,26 +16,40 @@ HeroMC::~HeroMC()
 //    delete heroSkeleton;
 }
 
+HeroMC* HeroMC::create(const std::string& fileName)
+{
+    HeroMC *character = new HeroMC();
+    if(character && character->initWithFile(fileName))
+    {
+	character->autorelease();
+	return character;
+    } 
+    CC_SAFE_DELETE(character);
+    return NULL;
+}
 
 
 void HeroMC::update(float delta)
 {
-    Vec2 velocity = Vec2(0.0f, 0.0f);
-    if(HUDLayer::moveRight)
+    if(true)
     {
-	velocity = Vec2(-GRAVITY_IN_PIXELS/2.0f, 0.0f);
-//	charBody->SetLinearVelocity(b2Vec2(-GRAVITY_IN_PIXELS/2.0f, 0.0f));
-    }
-    if(HUDLayer::moveLeft)
-    {
-	velocity = Vec2(GRAVITY_IN_PIXELS/2.0f, 0.0f);
-//	charBody->SetLinearVelocity(b2Vec2(GRAVITY_IN_PIXELS/2.0f, 0.0f));
-    }
-    if(HUDLayer::pressJump)
-    {
-	velocity = Vec2(0.0f, -GRAVITY_IN_PIXELS);
-//	charBody->SetLinearVelocity(b2Vec2(0.0f, -GRAVITY_IN_PIXELS));
-    }
+	if(HUDLayer::moveRight)
+	{
+	Vec2 velocity = Vec2(-GRAVITY_IN_PIXELS/2.0f, 0.0f);
+	Move(velocity);
+	}
+	if(HUDLayer::moveLeft)
+	{
+	Vec2 velocity = Vec2(GRAVITY_IN_PIXELS/2.0f, 0.0f);
+	Move(velocity);
+	}
+	if(HUDLayer::pressJump)
+	{
+	Vec2 velocity = Vec2(0.0f, -GRAVITY_IN_PIXELS);
+	Move(velocity);
+	}
 
-//    if(
+	b2Vec2 position = charBody->GetPosition();
+	this->setPosition(position.x, position.y);
+    }
 }

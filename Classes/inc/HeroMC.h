@@ -22,7 +22,10 @@ public:
     HeroMC(void);
     ~HeroMC(void);
 
+    static HeroMC* create(const std::string& fileName);
     void update(float delta);
+
+    b2Body* getBody()	{ 	return charBody; 	}
 };
 
 #endif	// __HERO_MC__

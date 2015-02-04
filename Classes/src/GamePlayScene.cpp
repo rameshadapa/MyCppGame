@@ -1,6 +1,7 @@
 #include "GamePlayScene.h"
 #include "GameOSD.h"
 #include "HeroMC.h"
+#include "HUDLayer.h"
 
 USING_NS_CC;
 
@@ -59,7 +60,7 @@ bool GamePlay::init()
 
     prepareWorldLayer(tileMap);
 
-    mainChar = HeroMC::create("mc.png");
+    mainChar = (HeroMC*)HeroMC::create("mc.png");
     mainChar->setPosition(Point(origin.x+mainChar->getContentSize().width/2.0f, origin.y+size.height - mainChar->getContentSize().height/2.0f));
 
     this->addChild(mainChar, 5);
@@ -135,14 +136,25 @@ void GamePlay::update(float dt)
 	{
 	    if(b->GetType() == b2_dynamicBody)
 	    {
-	    	Sprite* physicsSprite = (Sprite*)b->GetUserData();
-	    	physicsSprite->update(dt);
+	    	GameCharacter* physicsSprite = (GameCharacter*)b->GetUserData();
+		if(physicsSprite)
+		{
+		if(physicsSprite->getType() == 0)
+		{
+		    physicsSprite->update(dt);
+//		    setViewPoint(physicsSprite->getPosition());
+		}
+		}
+		else
+		{
+		    physicsSprite->update(dt);
+		}
 	    }
 	}
     }
 
-    float cameraX, cameraY, cameraZ;
-    float eyeX, eyeY, eyeZ;
+//    float cameraX, cameraY, cameraZ;
+//    float eyeX, eyeY, eyeZ;
     
 }
 
