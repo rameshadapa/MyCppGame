@@ -22,7 +22,7 @@ public:
 
     void setPhysics(b2World* world);
 
-    void setDefaultVelocity(cocos2d::Vec2 velocity)	{  	_velocity = velocity;	}
+//    void setDefaultVelocity(cocos2d::Vec2 velocity)	{  	_velocity = velocity;	}
     void setDefaultPosition(cocos2d::Vec2 position)	{	_position = position;	}
 
     void Move(cocos2d::Vec2 velocity);
@@ -34,8 +34,8 @@ public:
 private:
 
     spine::SkeletonAnimation* charSkeleton;
-    cocos2d::Vec2 _velocity;
-    cocos2d::Vec2 _position;
+//    cocos2d::Vec2 _velocity;
+//    cocos2d::Vec2 _position;
 
 protected:
     b2Body 	*charBody;

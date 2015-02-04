@@ -27,16 +27,6 @@ bool HUDLayer::pressJump = false;
 //bool HUDLayer::moveTop	= false;
 //bool HUDLayer::moveBottom	= false;
 
-/*Scene* HUDLayer::createLayer()
-{
-    auto scene = Scene::create();
-
-    auto layer = HUDLayer::create();
-
-    scene->addChild(layer);
-    return scene;
-}*/
-
 bool HUDLayer::init()
 {
     if(Layer::init())
@@ -178,27 +168,9 @@ void HUDLayer::onTouchesEnded(const vector<Touch*> &touches, Event *event)
     {
 	auto touch = item;
 	auto location = touch->getLocation();
-//	if(location.x>(leftButton->getPosition().x - leftButton->getContentSize().width/2.0f)
-//		 && location.x<(leftButton->getPosition().x + leftButton->getContentSize().width/2.0f)
-//		 && location.y>(leftButton->getPosition().y - leftButton->getContentSize().height/2.0f)
-//		 && location.y<(leftButton->getPosition().y + leftButton->getContentSize().height/2.0f))
-	{
-	    HUDLayer::moveLeft = false;
-	}
-//	if(location.x>(rightButton->getPosition().x - rightButton->getContentSize().width/2.0f)
-//		 && location.x<(rightButton->getPosition().x + rightButton->getContentSize().width/2.0f)
-//		 && location.y>(rightButton->getPosition().y - rightButton->getContentSize().height/2.0f)
-//		 && location.y<(rightButton->getPosition().y + rightButton->getContentSize().height/2.0f))
-	{
-	    HUDLayer::moveRight = false;
-	}
-//	if(location.x>(jumpButton->getPosition().x - jumpButton->getContentSize().width/2.0f)
-//		 && location.x<(jumpButton->getPosition().x + jumpButton->getContentSize().width/2.0f)
-//		 && location.y>(jumpButton->getPosition().y - jumpButton->getContentSize().height/2.0f)
-//		 && location.y<(jumpButton->getPosition().y + jumpButton->getContentSize().height/2.0f))
-	{
-	    HUDLayer::pressJump = false;
-	}
+	HUDLayer::moveLeft = false;
+	HUDLayer::moveRight = false;
+	HUDLayer::pressJump = false;
 	s_map.erase(touch->getID());
     }
 }

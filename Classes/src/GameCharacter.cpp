@@ -44,6 +44,9 @@ void GameCharacter::setPhysics(b2World *world)
 
 void GameCharacter::Move(Vec2 velocity)
 {
+    charBody->SetTransform(b2Vec2(velocity.x, velocity.y), CC_DEGREES_TO_RADIANS(0));
+    b2Vec2 position = charBody->GetPosition();
+    this->setPosition(position.x, position.y);
 }
 
 void GameCharacter::Jump(Vec2 jumpVelocity)
