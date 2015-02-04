@@ -1,6 +1,5 @@
 #include "GamePlayScene.h"
 #include "GameOSD.h"
-#include "ShaderLayer.h"
 #include "HeroMC.h"
 
 USING_NS_CC;

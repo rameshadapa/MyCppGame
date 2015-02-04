@@ -127,7 +127,6 @@ set(GAME_SRC
   Classes/HUDLayer.cpp
   Classes/GLES-Render.cpp
   Classes/ShaderNode.cpp
-  Classes/ShaderLayer.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
