@@ -2,6 +2,8 @@
 #define __GAMEMANAGERSCENE_H__
 
 #include <cocos2d.h>
+#include "GamePlayScene.h"
+#include "HUDLayer.h"
 
 class GameManager : public cocos2d::Layer
 {
@@ -10,13 +12,15 @@ public:
 
     virtual bool init();
 
+    void update(float delta);
+
 //    void update(float delta);
 
     CREATE_FUNC(GameManager);
 
 private:
-    cocos2d::Layer *gamePlayLayer;
-    cocos2d::Layer *hudLayer;
+    GamePlay *gamePlayLayer;
+    HUDLayer *hudLayer;
 };
 
 

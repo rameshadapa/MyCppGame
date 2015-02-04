@@ -27,5 +27,16 @@ bool GameManager::init()
 
     hudLayer = HUDLayer::create();
     this->addChild(hudLayer, 100);
+
+    hudLayer->setGameCharacter((HeroMC*)gamePlayLayer->getGameMC());
+
+    scheduleUpdate();
+
     return true;
+}
+
+void GameManager::update(float delta)
+{
+    gamePlayLayer->update(delta);
+    hudLayer->update(delta);
 }

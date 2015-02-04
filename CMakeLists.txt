@@ -122,6 +122,7 @@ set(GAME_SRC
   Classes/MainMenuScene.cpp
   Classes/GameManagerScene.cpp
   Classes/GamePlayScene.cpp
+  Classes/GameCharacter.cpp
   Classes/HeroMC.cpp
   Classes/HUDLayer.cpp
   Classes/GLES-Render.cpp

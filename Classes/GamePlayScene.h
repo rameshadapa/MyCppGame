@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "ShaderNode.h"
 #include "GameOSD.h"
-#include "HeroMC.h"
+#include "GameCharacter.h"
 #include "GLES-Render.h"
 #include "Box2D/Box2D.h"
 
@@ -24,6 +24,8 @@ public:
     void createPhysicsForTile(cocos2d::TMXLayer *layer, int x, int y);
     void setViewPoint(cocos2d::Point position);
 
+    GameCharacter* getGameMC()	{	return mainChar;	}
+
     void update(float dt);
 
     void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, uint32_t flags);
@@ -36,7 +38,6 @@ private:
     b2World *_world;
     //Box2D debugDraw.
     GLESDebugDraw _debugDraw;
-    ShaderNode *mask;
 
     cocos2d::CustomCommand _customCommand;
     cocos2d::Camera *_camera;
@@ -46,7 +47,7 @@ private:
 //    cocos2d::TMXTiledMap *tmpMap;
 
     //MainCharacter pointer.
-    HeroMC *mainChar;
+    GameCharacter *mainChar;
 };
 
 #endif	// __GAMEPLAY_SCENE_H__

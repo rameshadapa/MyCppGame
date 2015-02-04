@@ -3,12 +3,16 @@
 
 #include "cocos2d.h"
 #include "defs.h"
+#include "HeroMC.h"
+#include "ShaderNode.h"
 
 class HUDLayer : public cocos2d::Layer
 {
 public:
 //    static cocos2d::Scene* createScene();
     virtual bool init();
+
+    void setGameCharacter(HeroMC *mc) 	{	gameChar = mc;	}
 
     void onTouchesBegan(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event *event);
     void onTouchesEnded(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event *event);
@@ -18,8 +22,14 @@ public:
     void leftPress(cocos2d::Ref *sender);
     void rightPress(cocos2d::Ref *sender);
 
+    void update(float delta);
+
     CREATE_FUNC(HUDLayer);
 private:
+
+    HeroMC *gameChar;
+    ShaderNode *mask;
+
     cocos2d::Sprite *leftButton;
     cocos2d::Sprite *rightButton;
 

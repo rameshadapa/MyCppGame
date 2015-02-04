@@ -65,11 +65,7 @@ bool GamePlay::init()
 
     this->addChild(mainChar, 5);
 
-    mainChar->SetPhysics(_world);
-
-    mask = ShaderNode::shaderNodeWithVertex("", "game.glsl");
-    mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
-    this->addChild(mask, 6);
+    mainChar->setPhysics(_world);
 
 //    setViewPoint(mainChar->getPosition());
 
@@ -82,7 +78,7 @@ bool GamePlay::init()
     _camera->retain();
     this->addChild(_camera, 10);
 
-    scheduleUpdate();
+//    scheduleUpdate();
 
     return true;
 }
@@ -145,7 +141,6 @@ void GamePlay::update(float dt)
 	    }
 	}
     }
-    mask->setPosition(Size(mainChar->getPosition().x, mainChar->getPosition().y));
 
     float cameraX, cameraY, cameraZ;
     float eyeX, eyeY, eyeZ;

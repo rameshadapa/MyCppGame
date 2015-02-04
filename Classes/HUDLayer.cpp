@@ -26,8 +26,8 @@ bool HUDLayer::pressJump = false;
 //bool HUDLayer::moveRight	= false;
 //bool HUDLayer::moveTop	= false;
 //bool HUDLayer::moveBottom	= false;
-/*
-Scene* HUDLayer::createScene()
+
+/*Scene* HUDLayer::createLayer()
 {
     auto scene = Scene::create();
 
@@ -35,8 +35,8 @@ Scene* HUDLayer::createScene()
 
     scene->addChild(layer);
     return scene;
-}
-*/
+}*/
+
 bool HUDLayer::init()
 {
     if(Layer::init())
@@ -49,6 +49,10 @@ bool HUDLayer::init()
 	listener->onTouchesMoved = CC_CALLBACK_2(HUDLayer::onTouchesMoved, this);
 
    	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    	mask = ShaderNode::shaderNodeWithVertex("", "game.glsl");
+    	mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
+    	this->addChild(mask, 0);
 
  	leftButton = Sprite::create("joystick.png");
 				//		"joystick.png", CC_CALLBACK_1(HUDLayer::leftPress, this));
@@ -70,6 +74,11 @@ bool HUDLayer::init()
 	return true;
     }
     return false;
+}
+
+void HUDLayer::update(float delta)
+{
+    mask->setPosition(Size(gameChar->getPosition().x, gameChar->getPosition().y));
 }
 
 void HUDLayer::leftPress(Ref *sender)
