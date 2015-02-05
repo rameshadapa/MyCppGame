@@ -52,7 +52,7 @@ bool GamePlay::init()
 //    flags += b2Draw::e_shapeBit;
     _debugDraw.SetFlags(flags);
 
-    tileMap = TMXTiledMap::create("level1.tmx");
+    tileMap = TMXTiledMap::create("level2.tmx");
     CCLOG("Origin::: [%d %d]", origin.x, origin.y);
     tileMap->setPosition(Point(origin.x, origin.y));
     if(tileMap != nullptr)
@@ -111,14 +111,14 @@ void GamePlay::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 
 void GamePlay::onDraw(const Mat4 &transform, uint32_t flags)
 {
-    Director *director = Director::getInstance();
+/*    Director *director = Director::getInstance();
     CCASSERT(nullptr != director, "Director is null when seting matrix stack");
     director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, transform);
 
     _world->DrawDebugData();
     CHECK_GL_ERROR_DEBUG();
-    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
+    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);*/
 }
 
 void GamePlay::update(float dt)
@@ -141,60 +141,14 @@ void GamePlay::update(float dt)
 		{
 		if(physicsSprite->getType() == 0)
 		{
-		    b2Vec2 position = b->GetPosition();
-		    b2Vec2 movePos = b2Vec2(0.0f, 0.0f);
-		    bool updateSprite = false;
-		    if(HUDLayer::moveRight)
-		    {
-			movePos = b2Vec2(-GRAVITY_IN_PIXELS/2.0f, 0.0f);
-		    	Size size = Director::getInstance()->getVisibleSize();
-		    	b2Vec2 result = position + movePos;
-		    	Vec2 spritePos = physicsSprite->getPosition();
-		    	if(result.x < size.width/2.0 || (tileMap->getPosition().x + tileMap->getMapSize().width*tileMap->getTileSize().width) >= result.x)
-			{
-				updateSprite = true;
-			}
-			else
-			{
-				updateSprite = false;
-				this->setPosition(getPosition().x - result.x, getPosition().y);
-			}
-		    }
-		    if(HUDLayer::moveLeft)
-		    {
-			movePos = b2Vec2(GRAVITY_IN_PIXELS/2.0f, 0.0f);
-		    	Size size = Director::getInstance()->getVisibleSize();
-		    	b2Vec2 result = position + movePos;
-		    	Vec2 spritePos = physicsSprite->getPosition();
-		    	if(result.x > size.width/2.0 || (tileMap->getPosition().x + tileMap->getMapSize().width*tileMap->getTileSize().width) <= 0)
-			{
-				updateSprite = true;
-			}
-			else
-			{
-				updateSprite = false;
-				this->setPosition(getPosition().x - result.x, getPosition().y);
-			}
-		    }
-		    if(HUDLayer::pressJump)
-		    {
-			movePos = b2Vec2(0.0f, GRAVITY_IN_PIXELS/2.0f);
-		    }
-//		    Size size = Director::getInstance()->getVisibleSize();
-//		    b2Vec2 result = position + movePos;
-//		    Vec2 spritePos = physicsSprite->getPosition();
-//		    if(result.x < size.width/2.0 || tileMap->getMapSize().width*tileMap->getTileSize().width)
-		    if(updateSprite)
-		    {
-		    	physicsSprite->update(dt);
-		    }
+		   physicsSprite->update(dt);
 //		    setViewPoint(physicsSprite->getPosition());
 		}
-		}
-		else
+/*		else
 		{
 		    physicsSprite->update(dt);
-		}
+		}*/
+	    	}
 	    }
 	}
     }

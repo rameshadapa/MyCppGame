@@ -17,10 +17,11 @@ void main()
 	for(i=0; i<1; ++i)
 	{
 		float dist = distance(gl_FragCoord.xy, lightposition);
-		dist = (dist/d);
-		if(i)
-		    dist = dist*2.0;
-		opacity = opacity*dist;
+		if(dist < 1.0)
+		    dist = dist*d;
+		else
+		    dist = (dist/d);
+		opacity = dist;
 	}
 	gl_FragColor.rgb = c.rgb;
 	gl_FragColor.a = opacity;

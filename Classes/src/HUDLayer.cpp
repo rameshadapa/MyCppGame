@@ -69,7 +69,7 @@ bool HUDLayer::init()
 
 void HUDLayer::update(float delta)
 {
-    mask->setLightPos(Size(gameChar->getPosition().x, gameChar->getPosition().y));
+    mask->setLightPos(Vec2(gameChar->getPosition().x, gameChar->getPosition().y));
 }
 
 void HUDLayer::leftPress(Ref *sender)
