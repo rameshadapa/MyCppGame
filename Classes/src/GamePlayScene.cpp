@@ -141,7 +141,53 @@ void GamePlay::update(float dt)
 		{
 		if(physicsSprite->getType() == 0)
 		{
-		    physicsSprite->update(dt);
+		    b2Vec2 position = b->GetPosition();
+		    b2Vec2 movePos = b2Vec2(0.0f, 0.0f);
+		    bool updateSprite = false;
+		    if(HUDLayer::moveRight)
+		    {
+			movePos = b2Vec2(-GRAVITY_IN_PIXELS/2.0f, 0.0f);
+		    	Size size = Director::getInstance()->getVisibleSize();
+		    	b2Vec2 result = position + movePos;
+		    	Vec2 spritePos = physicsSprite->getPosition();
+		    	if(result.x < size.width/2.0 || (tileMap->getPosition().x + tileMap->getMapSize().width*tileMap->getTileSize().width) >= result.x)
+			{
+				updateSprite = true;
+			}
+			else
+			{
+				updateSprite = false;
+				this->setPosition(getPosition().x - result.x, getPosition().y);
+			}
+		    }
+		    if(HUDLayer::moveLeft)
+		    {
+			movePos = b2Vec2(GRAVITY_IN_PIXELS/2.0f, 0.0f);
+		    	Size size = Director::getInstance()->getVisibleSize();
+		    	b2Vec2 result = position + movePos;
+		    	Vec2 spritePos = physicsSprite->getPosition();
+		    	if(result.x > size.width/2.0 || (tileMap->getPosition().x + tileMap->getMapSize().width*tileMap->getTileSize().width) <= 0)
+			{
+				updateSprite = true;
+			}
+			else
+			{
+				updateSprite = false;
+				this->setPosition(getPosition().x - result.x, getPosition().y);
+			}
+		    }
+		    if(HUDLayer::pressJump)
+		    {
+			movePos = b2Vec2(0.0f, GRAVITY_IN_PIXELS/2.0f);
+		    }
+//		    Size size = Director::getInstance()->getVisibleSize();
+//		    b2Vec2 result = position + movePos;
+//		    Vec2 spritePos = physicsSprite->getPosition();
+//		    if(result.x < size.width/2.0 || tileMap->getMapSize().width*tileMap->getTileSize().width)
+		    if(updateSprite)
+		    {
+		    	physicsSprite->update(dt);
+		    }
 //		    setViewPoint(physicsSprite->getPosition());
 		}
 		}

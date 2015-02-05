@@ -42,6 +42,7 @@ bool HUDLayer::init()
 
     	mask = ShaderNode::shaderNodeWithVertex("", "game.glsl");
     	mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
+	mask->isLightMask(true);
     	this->addChild(mask, 0);
 
  	leftButton = Sprite::create("joystick.png");
@@ -68,7 +69,7 @@ bool HUDLayer::init()
 
 void HUDLayer::update(float delta)
 {
-    mask->setPosition(Size(gameChar->getPosition().x, gameChar->getPosition().y));
+    mask->setLightPos(Size(gameChar->getPosition().x, gameChar->getPosition().y));
 }
 
 void HUDLayer::leftPress(Ref *sender)

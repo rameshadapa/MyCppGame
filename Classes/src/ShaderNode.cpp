@@ -10,7 +10,8 @@ enum
 
 ShaderNode::ShaderNode() : _center(Vec2(0.0f, 0.0f)),
 			   _resolution(Vec2(0.0f, 0.0f)),
-			   _time(0.0f)
+			   _time(0.0f),
+			   _type(false)
 {
 }
 
@@ -79,6 +80,10 @@ void ShaderNode::loadShaderVertex(const std::string &vert, const std::string &fr
 
 void ShaderNode::update(float dt)
 {
+	if(_type)
+	{
+		getGLProgramState()->setUniformVec2("lightposition", _lightPos);
+	}
 	_time += dt;
 }
 
@@ -88,6 +93,12 @@ void ShaderNode::setPosition(const Vec2 &newPosition)
 	auto position = getPosition();
 	_center = Vec2(position.x * CC_CONTENT_SCALE_FACTOR(), position.y * CC_CONTENT_SCALE_FACTOR());
 	getGLProgramState()->setUniformVec2("center", _center);
+}
+
+void ShaderNode::setLightPos(const Vec2 &position)
+{
+	_lightPos = position;
+//	getGLProgramState()->setUniformVec2("lightposition", position);
 }
 
 void ShaderNode::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
