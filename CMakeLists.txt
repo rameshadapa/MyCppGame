@@ -122,6 +122,7 @@ set(GAME_SRC
   Classes/src/MainMenuScene.cpp
   Classes/src/GameManagerScene.cpp
   Classes/src/GamePlayScene.cpp
+  Classes/src/GameObject.cpp
   Classes/src/GameCharacter.cpp
   Classes/src/HeroMC.cpp
   Classes/src/HUDLayer.cpp

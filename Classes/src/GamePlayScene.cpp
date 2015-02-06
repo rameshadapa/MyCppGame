@@ -188,8 +188,6 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y)
     auto tile = layer->getTileAt(Point(x,y));
     auto tileSize = this->tileMap->getTileSize();
 
-    const float pixelPerMeter = PTM_RATIO;
-
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(
