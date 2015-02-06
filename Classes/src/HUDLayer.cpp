@@ -62,6 +62,7 @@ bool HUDLayer::init()
 	this->addChild(leftButton, 1);
 	this->addChild(rightButton, 1);
 	this->addChild(jumpButton, 1);
+
 	return true;
     }
     return false;
@@ -69,7 +70,7 @@ bool HUDLayer::init()
 
 void HUDLayer::update(float delta)
 {
-    mask->setLightPos(Vec2(gameChar->getPosition().x, gameChar->getPosition().y));
+//    mask->setLightPos(Vec2(gameChar->getPosition().x, gameChar->getPosition().y));
 }
 
 void HUDLayer::leftPress(Ref *sender)

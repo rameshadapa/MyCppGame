@@ -61,7 +61,7 @@ bool GamePlay::init()
     prepareWorldLayer(tileMap);
 
     mainChar = (HeroMC*)HeroMC::create("mc.png");
-    mainChar->setPosition(Point(origin.x+mainChar->getContentSize().width/2.0f, origin.y+size.height - mainChar->getContentSize().height/2.0f));
+    mainChar->setPosition(Point(origin.x+size.width/2.0f+mainChar->getContentSize().width/2.0f, origin.y+size.height/2.0f- mainChar->getContentSize().height/2.0f));
 
     this->addChild(mainChar, 5);
 
@@ -70,14 +70,14 @@ bool GamePlay::init()
 //    setViewPoint(mainChar->getPosition());
 
 //    _camera = Camera::createOrthographic(size.width, size.height, 0, 1000);
-    _camera = Camera::createPerspective(60.0f, (GLfloat)size.width/size.height, 1, 1000);
+/*    _camera = Camera::createPerspective(60.0f, (GLfloat)size.width/size.height, 1, 1000);
     _camera->setCameraFlag(CameraFlag::USER1);
     auto eye = Vec3(0.0f, 100.0f, 100.0f);
     _camera->setPosition3D(eye);	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 100));
     _camera->lookAt(Vec3(0, 0, 0), Vec3(0.0f, 1.0f, 0.0f));	//Vec3(mainChar->getPosition().x, mainChar->getPosition().y, 0), Vec3(0, 1, 0));
     _camera->retain();
     this->addChild(_camera, 10);
-
+*/
 //    scheduleUpdate();
 
     return true;
@@ -134,19 +134,22 @@ void GamePlay::update(float dt)
     {
 	if(b->GetUserData())
 	{
-	    if(b->GetType() == b2_dynamicBody)
+//	    if(b->GetType() == b2_dynamicBody)
 	    {
 	    	GameCharacter* physicsSprite = (GameCharacter*)b->GetUserData();
 		if(physicsSprite)
 		{
 		if(physicsSprite->getType() == 0)
 		{
-		   physicsSprite->update(dt);
+		    Vec2 pos = physicsSprite->getPosition();
+		    physicsSprite->update(dt);
+		    Vec2 diff = physicsSprite->getPosition() - pos;
+		    this->setPosition(getPosition() - diff);
 //		    setViewPoint(physicsSprite->getPosition());
 		}
 /*		else
 		{
-		    physicsSprite->update(dt);
+		    physicsSprite->setPosition(b->GetPosition().x, b->GetPosition().y);
 		}*/
 	    	}
 	    }

@@ -5,7 +5,7 @@
  </tileset>
  <layer name="bgLayer" width="30" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYBjZgBENE6sOG6bEXlz6SbWXGPWDxd5RPIpJxQBS+wDM
+   eJxjYBgF5ABGLHgw2EstN2GzhxR7idFDrr2jeORiAO/UAKo=
   </data>
  </layer>
 </map>

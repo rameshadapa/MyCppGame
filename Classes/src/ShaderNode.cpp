@@ -75,10 +75,10 @@ void ShaderNode::loadShaderVertex(const std::string &vert, const std::string &fr
 
 void ShaderNode::update(float dt)
 {
-	if(_type)
+/*	if(_type)
 	{
 		getGLProgramState()->setUniformVec2("lightposition", _lightPos);
-	}
+	}*/
 	_time += dt;
 }
 
