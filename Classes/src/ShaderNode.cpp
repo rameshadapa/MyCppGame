@@ -2,12 +2,6 @@
 
 USING_NS_CC;
 
-enum
-{
-	SIZE_X = 960*2,
-	SIZE_Y = 640*2,
-};
-
 ShaderNode::ShaderNode() : _center(Vec2(0.0f, 0.0f)),
 			   _resolution(Vec2(0.0f, 0.0f)),
 			   _time(0.0f),
@@ -30,6 +24,7 @@ ShaderNode* ShaderNode::shaderNodeWithVertex(const std::string &vert, const std:
 
 bool ShaderNode::initWithVertex(const std::string &vert, const std::string &frag)
 {
+	Size size = Director::getInstance()->getVisibleSize();
 #if CC_ENABLE_CACHE_TEXTURE_DATA
 	auto listener = EventListenerCustom::create(EVENT_RENDERER_RECREATED, [this](EventCustom *event) {
 		this->setGLProgramState(nullptr);
@@ -45,11 +40,11 @@ bool ShaderNode::initWithVertex(const std::string &vert, const std::string &frag
   	loadShaderVertex(vert, frag);
 
 	_time = 0;
-	_resolution = Vec2(SIZE_X, SIZE_Y);
+	_resolution = Vec2(size.width, size.height);
 
 	getGLProgramState()->setUniformVec2("resolution", _resolution);
 	scheduleUpdate();
-	setContentSize(Size(SIZE_X, SIZE_Y));
+	setContentSize(Size(size.width, size.height));
 	setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	return true;
@@ -110,7 +105,8 @@ void ShaderNode::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 
 void ShaderNode::onDraw(const Mat4 &transform, uint32_t flags)
 {
-	float w = SIZE_X, h = SIZE_Y;
+	Size size = Director::getInstance()->getVisibleSize();
+	float w = size.width, h = size.height;
 	GLfloat vertices[12] = {0, 0, w, 0, w, h, 0, 0, 0, h, w, h};
 
 	auto glProgramState = getGLProgramState();

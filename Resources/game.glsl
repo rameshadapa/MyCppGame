@@ -2,7 +2,6 @@
 varying vec4 v_fragmentColor;	
 varying vec2 v_texCoord;
 
-uniform vec2 center;
 uniform vec2 resolution;
 uniform vec2 lightposition;
 //CC_Time[1] is time
