@@ -40,11 +40,11 @@ bool HUDLayer::init()
 
    	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    	mask = ShaderNode::shaderNodeWithVertex("", "game.glsl");
+/*    	mask = ShaderNode::shaderNodeWithVertex("", "light.fsh");
     	mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
-	mask->isLightMask(true);
+//	mask->isLightMask(true);
     	this->addChild(mask, 0);
-
+*/
  	leftButton = Sprite::create("joystick.png");
 				//		"joystick.png", CC_CALLBACK_1(HUDLayer::leftPress, this));
 	leftButton->setPosition(Point(origin.x+leftButton->getContentSize().width, origin.y + leftButton->getContentSize().height));

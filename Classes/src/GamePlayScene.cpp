@@ -61,7 +61,7 @@ bool GamePlay::init()
     prepareWorldLayer(tileMap);
 
     mainChar = (HeroMC*)HeroMC::create("mc.png");
-    mainChar->setPosition(Point(origin.x+size.width/2.0f+mainChar->getContentSize().width/2.0f, origin.y+size.height/2.0f- mainChar->getContentSize().height/2.0f));
+    mainChar->setPosition(Point(origin.x+size.width/2.0f, origin.y+size.height/2.0f));
 
     this->addChild(mainChar, 5);
 
