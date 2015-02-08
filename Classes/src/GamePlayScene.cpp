@@ -53,10 +53,14 @@ bool GamePlay::init()
     _debugDraw.SetFlags(flags);
 
     tileMap = TMXTiledMap::create("level2.tmx");
-    CCLOG("Origin::: [%d %d]", origin.x, origin.y);
-    tileMap->setPosition(Point(origin.x, origin.y));
-    if(tileMap != nullptr)
-        this->addChild(tileMap, -1);
+    CCLOG("Origin::: [%f %f]", origin.x, origin.y);
+
+    this->addChild(tileMap, -1);
+
+    tileMap->setAnchorPoint(Point::ZERO);     
+    Size CC_UNUSED s = tileMap->getContentSize();
+    CCLog("Map Size:: [%f  %f]", s.width,s.height);
+    tileMap->setPosition(Point(origin.x, origin.y - s.height + size.height));
 
     prepareWorldLayer(tileMap);
 
@@ -111,14 +115,14 @@ void GamePlay::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 
 void GamePlay::onDraw(const Mat4 &transform, uint32_t flags)
 {
-/*    Director *director = Director::getInstance();
+    Director *director = Director::getInstance();
     CCASSERT(nullptr != director, "Director is null when seting matrix stack");
     director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, transform);
 
     _world->DrawDebugData();
     CHECK_GL_ERROR_DEBUG();
-    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);*/
+    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
 
 void GamePlay::update(float dt)
@@ -134,7 +138,7 @@ void GamePlay::update(float dt)
     {
 	if(b->GetUserData())
 	{
-//	    if(b->GetType() == b2_dynamicBody)
+	    if(b->GetType() == b2_dynamicBody)
 	    {
 	    	GameCharacter* physicsSprite = (GameCharacter*)b->GetUserData();
 		if(physicsSprite)
@@ -190,12 +194,13 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y)
     auto p = layer->getPositionAt(Point(x, y));
     auto tile = layer->getTileAt(Point(x,y));
     auto tileSize = this->tileMap->getTileSize();
+    auto size = Director::getInstance()->getVisibleSize();
 
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(
 	p.x + tileSize.width/2.0f,
-	p.y + tileSize.height/2.0f);
+	p.y - tileMap->getContentSize().height + size.height + tileSize.height/2.0f);
     bodyDef.userData = tile;
 
     b2Body *body = _world->CreateBody(&bodyDef);
