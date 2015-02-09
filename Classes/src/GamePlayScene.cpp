@@ -1,6 +1,7 @@
 #include "GamePlayScene.h"
 #include "GameOSD.h"
 #include "HeroMC.h"
+#include "GameObject.h"
 #include "HUDLayer.h"
 
 USING_NS_CC;
@@ -184,7 +185,13 @@ void GamePlay::createWorldPhysics(TMXLayer* layer)
 	{
 	    auto tileSprite = layer->getTileAt(Point(x, y));
 	    if(tileSprite)
-		this->createPhysicsForTile(layer, x, y);
+	    {
+//		this->createPhysicsForTile(layer, x, y);
+		GameObject* gameObject = new GameObject(tileSprite);
+		gameObject->setBodyType(b2_staticBody);
+		gameObject->setObjType(1);
+		gameObject->setPhysics(_world);
+	    }
 	}
    }
 }
