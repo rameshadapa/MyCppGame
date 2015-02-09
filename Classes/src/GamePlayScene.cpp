@@ -116,14 +116,14 @@ void GamePlay::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 
 void GamePlay::onDraw(const Mat4 &transform, uint32_t flags)
 {
-    Director *director = Director::getInstance();
+/*    Director *director = Director::getInstance();
     CCASSERT(nullptr != director, "Director is null when seting matrix stack");
     director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, transform);
 
     _world->DrawDebugData();
     CHECK_GL_ERROR_DEBUG();
-    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
+    director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);*/
 }
 
 void GamePlay::update(float dt)
@@ -186,11 +186,11 @@ void GamePlay::createWorldPhysics(TMXLayer* layer)
 	    auto tileSprite = layer->getTileAt(Point(x, y));
 	    if(tileSprite)
 	    {
-//		this->createPhysicsForTile(layer, x, y);
-		GameObject* gameObject = new GameObject(tileSprite);
+		this->createPhysicsForTile(layer, x, y);
+/*		GameObject* gameObject = new GameObject(tileSprite);
 		gameObject->setBodyType(b2_staticBody);
 		gameObject->setObjType(1);
-		gameObject->setPhysics(_world);
+		gameObject->setPhysics(_world);*/
 	    }
 	}
    }

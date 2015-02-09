@@ -87,7 +87,7 @@ void ShaderNode::setPosition(const Vec2 &newPosition)
 	Node::setPosition(newPosition);
 	auto position = getPosition();
 	_center = Vec2(position.x * CC_CONTENT_SCALE_FACTOR(), position.y * CC_CONTENT_SCALE_FACTOR());
-	getGLProgramState()->setUniformVec2("center", _center);
+//	getGLProgramState()->setUniformVec2("center", _center);
 }
 
 void ShaderNode::setLightPos(const Vec2 &position)
@@ -107,6 +107,8 @@ void ShaderNode::onDraw(const Mat4 &transform, uint32_t flags)
 {
 	Size size = Director::getInstance()->getVisibleSize();
 	float w = size.width, h = size.height;
+	h = h + h/18.2f;
+  	CCLog("Size::: [%f  %f]", w, h);
 	GLfloat vertices[12] = {0, 0, w, 0, w, h, 0, 0, 0, h, w, h};
 
 	auto glProgramState = getGLProgramState();

@@ -20,15 +20,15 @@ void main()
 	vec4 color;
 	vec4 c;
 	float alpha = 1.0;
-	for(i=0; i<2; ++i)
+	for(i=0; i<1; ++i)
 	{
 //	vec2 aux;
 //	aux.x = resolution.x*(0.5+(float(i)*0.25))-pixel.x;
 //	aux.y = resolution.y*(0.5+(float(i)*0.25))-pixel.y;
 //	float distance=distance(pixel, resolution*(0.5+(float(i)*0.25)));
-	float distance = sqrt((pixel.x - resolution*(0.5+(float(i)*0.25)).x)*(pixel.x - resolution*(0.5+(float(i)*0.25)).x) + (pixel.y - resolution*(0.5+(float(i)*0.25)).y)*(pixel.y - resolution*(0.5+(float(i)*0.25)).y));
+	float distance = sqrt((pixel.x - resolution.x*(0.6+(float(i)*0.25)))*(pixel.x - resolution.x*(0.6+(float(i)*0.25))) + (pixel.y - resolution.y*(0.6+(float(i)*0.25)))*(pixel.y - resolution.y*(0.6+(float(i)*0.25))));
 	float attenuation=1.0/(lightAttenuation.x+lightAttenuation.y*distance+lightAttenuation.z*distance*distance);	
-	color=vec4(attenuation,attenuation,attenuation,1.0)*vec4(lightColor,0.5)*resolution.x/2.0;	
+	color=vec4(attenuation,attenuation,attenuation,1.0)*vec4(lightColor,0.5)*resolution.x*2.0;	
 	c = v_fragmentColor * texture2D(CC_Texture0, v_texCoord);
 	alpha = alpha*(1.0-color.r*color.g);
 	}
