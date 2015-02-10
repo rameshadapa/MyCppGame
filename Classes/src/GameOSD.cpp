@@ -21,9 +21,9 @@ void GameOSD::Initialize()
     Point origin = director->getVisibleOrigin();
 }
 
-void GameOSD::InitOSD(int widthMul, int heightMul)
+void GameOSD::InitOSD(int width, int height)
 {
-    GAME_WIDTH 	= 960*widthMul;
-    GAME_HEIGHT	= 640*heightMul;
-    PTM_RATIO	= 32*widthMul/heightMul;
+    GAME_WIDTH 	= width;
+    GAME_HEIGHT	= height;
+//    PTM_RATIO	= 32*widthMul/heightMul;
 }

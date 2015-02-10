@@ -6,7 +6,7 @@
 #include "HeroMC.h"
 #include "ShaderNode.h"
 
-class HUDLayer : public cocos2d::Layer
+class HUDLayer : public cocos2d::Layer, public GameOSD
 {
 public:
 //    static cocos2d::Scene* createScene();

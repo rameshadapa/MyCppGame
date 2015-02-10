@@ -2,8 +2,9 @@
 #define __SHADERNODE_H__
 
 #include "cocos2d.h"
+#include "GameOSD.h"
 
-class ShaderNode : public cocos2d::Node
+class ShaderNode : public cocos2d::Node, public GameOSD
 {
 public:
     static ShaderNode* shaderNodeWithVertex(const std::string &vert, const std::string &frag);

@@ -28,7 +28,7 @@ bool MainMenu::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Size visibleSize = Size(GAME_WIDTH, GAME_HEIGHT);
     Point origin = Director::getInstance()->getVisibleOrigin();
 
     /////////////////////////////

@@ -31,7 +31,7 @@ bool HUDLayer::init()
 {
     if(Layer::init())
     {
-        Size size = Director::getInstance()->getVisibleSize();
+        Size size = Size(GAME_WIDTH, GAME_HEIGHT);
         Point origin = Director::getInstance()->getVisibleOrigin();
 	auto listener = EventListenerTouchAllAtOnce::create();
 	listener->onTouchesBegan = CC_CALLBACK_2(HUDLayer::onTouchesBegan, this);
@@ -41,7 +41,7 @@ bool HUDLayer::init()
    	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     	mask = ShaderNode::shaderNodeWithVertex("", "light.fsh");
-	CCLog("Shader Position:: [%f  %f]", size.width, size.height);
+	CCLOG("Shader Position:: [%f  %f]", size.width, size.height);
     	mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
 //	mask->isLightMask(true);
     	this->addChild(mask, 0);
@@ -91,7 +91,7 @@ void HUDLayer::onTouchesBegan(const vector<Touch*> &touches, Event *event)
     {
 	auto touch = item;
 	auto location = touch->getLocation();
-	CCLog("Touch Location:: [%f %f]", location.x, location.y);
+	CCLOG("Touch Location:: [%f %f]", location.x, location.y);
 	if(location.x>(leftButton->getPosition().x - leftButton->getContentSize().width/2.0f)
 		 && location.x<(leftButton->getPosition().x + leftButton->getContentSize().width/2.0f)
 		 && location.y>(leftButton->getPosition().y - leftButton->getContentSize().height/2.0f)

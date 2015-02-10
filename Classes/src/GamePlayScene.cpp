@@ -34,7 +34,7 @@ bool GamePlay::init()
 	return false;
     }
 
-    Size size = Director::getInstance()->getVisibleSize();
+    Size size = Size(GAME_WIDTH, GAME_HEIGHT);
     Point origin = Director::getInstance()->getVisibleOrigin();
 
     b2Vec2 gravity;
@@ -60,7 +60,7 @@ bool GamePlay::init()
 
     tileMap->setAnchorPoint(Point::ZERO);     
     Size CC_UNUSED s = tileMap->getContentSize();
-    CCLog("Map Size:: [%f  %f]", s.width,s.height);
+    CCLOG("Map Size:: [%f  %f]", s.width,s.height);
     tileMap->setPosition(Point(origin.x, origin.y - s.height + size.height));
 
     prepareWorldLayer(tileMap);
@@ -90,7 +90,7 @@ bool GamePlay::init()
 
 void GamePlay::setViewPoint(Point position)
 {
-    Size size = Director::getInstance()->getVisibleSize();
+    Size size = Size(GAME_WIDTH, GAME_HEIGHT);
 
     int x = MAX(position.x, size.width/2.0f);
     int y = MAX(position.y, size.height/2.0f);
@@ -131,7 +131,7 @@ void GamePlay::update(float dt)
     int velocityIterations = 8;
     int positionIterations = 2;
 
-    Size size = Director::getInstance()->getVisibleSize();
+    Size size = Size(GAME_WIDTH, GAME_HEIGHT);
 
     _world->Step(dt, velocityIterations, positionIterations);
 
@@ -201,7 +201,7 @@ void GamePlay::createPhysicsForTile(TMXLayer *layer, int x, int y)
     auto p = layer->getPositionAt(Point(x, y));
     auto tile = layer->getTileAt(Point(x,y));
     auto tileSize = this->tileMap->getTileSize();
-    auto size = Director::getInstance()->getVisibleSize();
+    auto size = Size(GAME_WIDTH, GAME_HEIGHT);
 
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;

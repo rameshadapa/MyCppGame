@@ -24,7 +24,7 @@ ShaderNode* ShaderNode::shaderNodeWithVertex(const std::string &vert, const std:
 
 bool ShaderNode::initWithVertex(const std::string &vert, const std::string &frag)
 {
-	Size size = Director::getInstance()->getVisibleSize();
+	Size size = Size(GAME_WIDTH, GAME_HEIGHT);
 #if CC_ENABLE_CACHE_TEXTURE_DATA
 	auto listener = EventListenerCustom::create(EVENT_RENDERER_RECREATED, [this](EventCustom *event) {
 		this->setGLProgramState(nullptr);
@@ -105,10 +105,8 @@ void ShaderNode::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 
 void ShaderNode::onDraw(const Mat4 &transform, uint32_t flags)
 {
-	Size size = Director::getInstance()->getVisibleSize();
-	float w = size.width, h = size.height;
-	h = h + h/18.2f;
-  	CCLog("Size::: [%f  %f]", w, h);
+	float w = GAME_WIDTH, h = GAME_HEIGHT;
+  	CCLOG("Size::: [%f  %f]", w, h);
 	GLfloat vertices[12] = {0, 0, w, 0, w, h, 0, 0, 0, h, w, h};
 
 	auto glProgramState = getGLProgramState();

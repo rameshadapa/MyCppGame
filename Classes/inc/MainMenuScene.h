@@ -2,8 +2,9 @@
 #define __MAINMENU_SCENE_H__
 
 #include "cocos2d.h"
+#include "GameOSD.h"
 
-class MainMenu : public cocos2d::Layer
+class MainMenu : public cocos2d::Layer, public GameOSD
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer

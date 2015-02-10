@@ -17,7 +17,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("Prisoner");
         director->setOpenGLView(glview);
 //	glview->setFrameSize(320, 240);
     }
@@ -43,6 +43,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	resDirOrders.push_back( "iphone" );
 
 	glview->setDesignResolutionSize( 2048, 1536, ResolutionPolicy::NO_BORDER );
+	InitOSD(2048, 1536);
+	
     }
     else if( 1024 == screenSize.width || 1024 == screenSize.height )
     {
@@ -52,6 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	resDirOrders.push_back( "iphone" );
 
 	glview->setDesignResolutionSize( 1024, 768, ResolutionPolicy::NO_BORDER );
+	InitOSD(1024, 768);
     }
     else if( 1136 == screenSize.width || 1136 == screenSize.height )
     {
@@ -60,6 +63,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	resDirOrders.push_back( "iphone" );
 
 	glview->setDesignResolutionSize( 1136, 640, ResolutionPolicy::NO_BORDER );
+	InitOSD(1136, 640);
     }
     else if( 960 == screenSize.width || 960 == screenSize.height )
     {
@@ -68,6 +72,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	resDirOrders.push_back( "iphone" );
 	
 	glview->setDesignResolutionSize( 960, 640, ResolutionPolicy::NO_BORDER );
+	InitOSD(960, 640);
     }
     else
     {
@@ -78,12 +83,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	    resDirOrders.push_back( "iphone" );
 
 	    glview->setDesignResolutionSize( 960, 640, ResolutionPolicy::NO_BORDER );
+	    InitOSD(960, 640);
 	}
 	else
 	{
 	    resDirOrders.push_back( "iphone" );
 
 	    glview->setDesignResolutionSize( 480, 320, ResolutionPolicy::NO_BORDER );
+	    InitOSD(480, 320);
 	}
     }
 
