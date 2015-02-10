@@ -7,16 +7,16 @@
 class GameOSD
 {
 public:
-    static int GAME_WIDTH;
-    static int GAME_HEIGHT;
+    static float GAME_WIDTH;
+    static float GAME_HEIGHT;
 
-    static int PTM_RATIO;		//PixelToMeter Ratio.
+    static float PTM_RATIO;		//PixelToMeter Ratio.
 
     GameOSD();
     ~GameOSD();
    
     static void Initialize();
-    static void InitOSD(int multiplier, int devider);
+    static void InitOSD(float multiplier, float devider);
 };
 
 #endif		// __GAMEOSD_H__

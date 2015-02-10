@@ -16,8 +16,9 @@ void GameObject::setPhysics(b2World *world)
 {
     b2BodyDef bodyDef;
     bodyDef.type = _bodyType;
-    Vec2 pos = _sprite->getPosition();
+    Vec2 pos = getPosition();
     bodyDef.position.Set(pos.x, pos.y);
+    CCLog("Object Position:: [%f  %f]", pos.x, pos.y);
     bodyDef.userData = this;
 
     _body = world->CreateBody(&bodyDef);

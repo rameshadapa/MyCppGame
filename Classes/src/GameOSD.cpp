@@ -2,9 +2,9 @@
 
 USING_NS_CC;
 
-int GameOSD::GAME_WIDTH;
-int GameOSD::GAME_HEIGHT;
-int GameOSD::PTM_RATIO		= 32;
+float GameOSD::GAME_WIDTH;
+float GameOSD::GAME_HEIGHT;
+float GameOSD::PTM_RATIO		= 32;
 
 GameOSD::GameOSD()
 {
@@ -21,7 +21,7 @@ void GameOSD::Initialize()
     Point origin = director->getVisibleOrigin();
 }
 
-void GameOSD::InitOSD(int width, int height)
+void GameOSD::InitOSD(float width, float height)
 {
     GAME_WIDTH 	= width;
     GAME_HEIGHT	= height;
