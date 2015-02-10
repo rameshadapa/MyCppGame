@@ -19,6 +19,7 @@ public:
     cocos2d::Vec2 getPosition()	{	return _sprite->getPosition();	}
     void setPosition(const cocos2d::Vec2 &position)	{	_sprite->setPosition(position);	}
     cocos2d::Size getContentSize()	{	return _sprite->getContentSize();	}
+    void update(float delta);
 
 private:
     typedef enum {

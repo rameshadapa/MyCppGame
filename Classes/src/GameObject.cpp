@@ -16,12 +16,13 @@ void GameObject::setPhysics(b2World *world)
 {
     b2BodyDef bodyDef;
     bodyDef.type = _bodyType;
-    bodyDef.position.Set(getPosition().x, getPosition().y);
+    Vec2 pos = _sprite->getPosition();
+    bodyDef.position.Set(pos.x, pos.y);
     bodyDef.userData = this;
 
     _body = world->CreateBody(&bodyDef);
     b2PolygonShape shape;
-    shape.SetAsBox(getContentSize().width*0.5f, getContentSize().height*0.5f);
+    shape.SetAsBox(_sprite->getContentSize().width*0.5f, _sprite->getContentSize().height*0.5f);
 
     b2FixtureDef charFixture;
     charFixture.shape = &shape;
@@ -29,4 +30,9 @@ void GameObject::setPhysics(b2World *world)
     charFixture.friction = 0.3f;
 
     _body->CreateFixture(&charFixture);
+}
+
+void GameObject::update(float delta)
+{
+    _sprite->update(delta);
 }

@@ -179,18 +179,23 @@ void GamePlay::prepareWorldLayer(TMXTiledMap *map)
 void GamePlay::createWorldPhysics(TMXLayer* layer)
 {
    Size layerSize = layer->getLayerSize();
+   auto tileSize = tileMap->getTileSize();
+   auto tileContentSize = tileMap->getContentSize();
    for( int y = 0; y<layerSize.height; ++y )
    {
 	for( int x=0; x<layerSize.width; ++x)
 	{
 	    auto tileSprite = layer->getTileAt(Point(x, y));
+	    auto p = layer->getPositionAt(Point(x, y));
 	    if(tileSprite)
 	    {
-		this->createPhysicsForTile(layer, x, y);
-/*		GameObject* gameObject = new GameObject(tileSprite);
+//		this->createPhysicsForTile(layer, x, y);
+		GameObject* gameObject = new GameObject(tileSprite);
 		gameObject->setBodyType(b2_staticBody);
 		gameObject->setObjType(1);
-		gameObject->setPhysics(_world);*/
+		gameObject->setPosition(Vec2(p.x + tileSize.width*0.5f,
+					p.y - tileContentSize.height + GAME_HEIGHT + tileSize.height*0.5f));
+		gameObject->setPhysics(_world);
 	    }
 	}
    }
