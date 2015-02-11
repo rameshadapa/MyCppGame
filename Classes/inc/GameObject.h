@@ -31,9 +31,9 @@ private:
     	OBJECT_LAYER_STATIC,
     	OBJECT_LAYER_DYNAMIC,
     }ObjectType;
-
     cocos2d::Sprite *_sprite;
     b2Body *_body;
+    b2FixtureDef *_charFixture;
     b2BodyType _bodyType;
     ObjectType _objType;
     cocos2d::Vec2 _position;

@@ -22,6 +22,7 @@ static Map<int, TouchPoint*> s_map;
 bool HUDLayer::moveLeft = false;
 bool HUDLayer::moveRight = false;
 bool HUDLayer::pressJump = false;
+bool HUDLayer::pressMine = false;
 //bool HUDLayer::moveLeft 	= false;
 //bool HUDLayer::moveRight	= false;
 //bool HUDLayer::moveTop	= false;
@@ -54,8 +55,9 @@ bool HUDLayer::init()
 	rightButton->setPosition(Point(leftButton->getPosition().x + leftButton->getContentSize().width, leftButton->getPosition().y));
 
 	jumpButton = Sprite::create("joystick.png");
-	jumpButton->setPosition(Point(origin.x+size.width-jumpButton->getContentSize().width/2.0f, origin.y + jumpButton->getContentSize().height*3.0f/2.0f));
-	
+	jumpButton->setPosition(Point(origin.x+size.width-jumpButton->getContentSize().width*0.5f, origin.y + jumpButton->getContentSize().height*3.0f/2.0f));
+	mineTool = Sprite::create("joystick.png");
+	mineTool->setPosition(Point(origin.x+size.width-mineTool->getContentSize().width*1.5f, origin.y+mineTool->getContentSize().height));
 /*	auto menu = Menu::create(leftButton, NULL);
 	menu->setPosition(Point::ZERO);
 	menu->addChild(rightButton);
@@ -63,6 +65,7 @@ bool HUDLayer::init()
 	this->addChild(leftButton, 1);
 	this->addChild(rightButton, 1);
 	this->addChild(jumpButton, 1);
+	this->addChild(mineTool, 1);
 
 	return true;
     }
@@ -113,6 +116,13 @@ void HUDLayer::onTouchesBegan(const vector<Touch*> &touches, Event *event)
 	{
 	    HUDLayer::pressJump = true;
 	}
+	if(location.x>(mineTool->getPosition().x - mineTool->getContentSize().width/2.0f)
+		 && location.x<(mineTool->getPosition().x + mineTool->getContentSize().width/2.0f)
+		 && location.y>(mineTool->getPosition().y - mineTool->getContentSize().height/2.0f)
+		 && location.y<(mineTool->getPosition().y + mineTool->getContentSize().height/2.0f))
+	{
+	    HUDLayer::pressMine = true;
+	}
 	auto touchPoint = TouchPoint::touchPointWithArea(location);
 	s_map.insert(touch->getID(), touchPoint);
     }
@@ -158,6 +168,17 @@ void HUDLayer::onTouchesMoved(const vector<Touch*> &touches, Event *event)
 	{
 	    HUDLayer::pressJump = false;
 	}
+	if(location.x>(mineTool->getPosition().x - mineTool->getContentSize().width/2.0f)
+		 && location.x<(mineTool->getPosition().x + mineTool->getContentSize().width/2.0f)
+		 && location.y>(mineTool->getPosition().y - mineTool->getContentSize().height/2.0f)
+		 && location.y<(mineTool->getPosition().y + mineTool->getContentSize().height/2.0f))
+	{
+	    HUDLayer::pressMine = true;
+	}
+	else
+	{
+	    HUDLayer::pressMine = false;
+	}
 	auto touchPoint = TouchPoint::touchPointWithArea(location);
 	s_map.erase(touch->getID());
 	s_map.insert(touch->getID(), touchPoint);
@@ -174,6 +195,7 @@ void HUDLayer::onTouchesEnded(const vector<Touch*> &touches, Event *event)
 	HUDLayer::moveLeft = false;
 	HUDLayer::moveRight = false;
 	HUDLayer::pressJump = false;
+	HUDLayer::pressMine = false;
 	s_map.erase(touch->getID());
     }
 }

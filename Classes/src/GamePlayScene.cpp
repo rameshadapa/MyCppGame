@@ -129,7 +129,7 @@ void GamePlay::onDraw(const Mat4 &transform, uint32_t flags)
 void GamePlay::update(float dt)
 {
     int velocityIterations = 8;
-    int positionIterations = 2;
+    int positionIterations = 1;
 
     Size size = Size(GAME_WIDTH, GAME_HEIGHT);
 

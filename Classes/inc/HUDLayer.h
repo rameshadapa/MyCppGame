@@ -33,7 +33,7 @@ private:
     cocos2d::Sprite *leftButton;
     cocos2d::Sprite *rightButton;
 
-    cocos2d::MenuItemImage *mineTool;
+    cocos2d::Sprite *mineTool;
     cocos2d::Sprite *jumpButton;
     cocos2d::MenuItemImage *attackButton;
 //    static cocos2d::Map<int, cocos2d::Vec2*> s_map;
@@ -42,7 +42,7 @@ public:
     static bool moveLeft;//	= false;
     static bool moveRight;//	= false;
 
-    static constexpr bool pressMine	= false;
+    static bool pressMine;
     static bool pressJump;//	= false;
     static constexpr bool pressAttack	= false;
 
