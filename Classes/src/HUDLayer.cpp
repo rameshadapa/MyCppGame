@@ -41,7 +41,7 @@ bool HUDLayer::init()
 
    	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    	mask = ShaderNode::shaderNodeWithVertex("", "game.glsl");
+    	mask = ShaderNode::shaderNodeWithVertex("", "light.fsh");
 	CCLOG("Shader Position:: [%f  %f]", size.width, size.height);
     	mask->setPosition(Vec2(size.width/2.0f, size.height/2.0f));
 //	mask->isLightMask(true);

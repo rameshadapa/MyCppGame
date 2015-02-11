@@ -9,7 +9,7 @@ GameObject::GameObject(Sprite *sprite)
 
 GameObject::~GameObject()
 {
-    _body->DestroyFixture(_charFixture);
+//    _body->DestroyFixture(&_charFixture);
     _body->GetWorld()->DestroyBody(_body);
 }
 
@@ -26,11 +26,12 @@ void GameObject::setPhysics(b2World *world)
     b2PolygonShape shape;
     shape.SetAsBox(_sprite->getContentSize().width*0.5f, _sprite->getContentSize().height*0.5f);
 
-    _charFixture->shape = &shape;
-    _charFixture->density = 1.0f;
-    _charFixture->friction = 0.3f;
+    b2FixtureDef charFixture;
+    charFixture.shape = &shape;
+    charFixture.density = 1.0f;
+    charFixture.friction = 0.3f;
 
-    _body->CreateFixture(_charFixture);
+    _body->CreateFixture(&charFixture);
 }
 
 void GameObject::update(float delta)

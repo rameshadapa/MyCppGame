@@ -46,6 +46,7 @@ void GameCharacter::Move(Vec2 velocity)
 {
 //    charBody->SetTransform(b2Vec2(velocity.x, velocity.y), CC_DEGREES_TO_RADIANS(0));
     charBody->SetLinearVelocity(b2Vec2(velocity.x, velocity.y));
+//    charBody->ApplyLinearImpulse(b2Vec2(velocity.x, velocity.y), charBody->GetWorldCenter(), true);
     b2Vec2 position = charBody->GetPosition();
     this->setPosition(position.x, position.y);
 }
