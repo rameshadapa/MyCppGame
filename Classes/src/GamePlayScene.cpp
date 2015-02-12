@@ -161,6 +161,11 @@ void GamePlay::update(float dt)
 	}
     }
 
+    if(HUDLayer::pressMine)
+    {
+ 	CCLog("Started gameplay mining..");
+    }
+
 //    float cameraX, cameraY, cameraZ;
 //    float eyeX, eyeY, eyeZ;
     

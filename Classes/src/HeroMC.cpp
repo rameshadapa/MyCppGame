@@ -48,6 +48,10 @@ void HeroMC::update(float delta)
 	Vec2 velocity = Vec2(0.0f, -GRAVITY_IN_PIXELS);
 	Move(velocity);
 	}
+	if(HUDLayer::pressMine)
+	{
+		CCLog("Started mining....");
+	}
 
 	b2Vec2 position = charBody->GetPosition();
 	this->setPosition(position.x, position.y);
