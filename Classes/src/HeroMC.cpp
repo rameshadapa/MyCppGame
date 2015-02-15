@@ -35,16 +35,19 @@ void HeroMC::update(float delta)
     {
 	if(HUDLayer::moveRight)
 	{
+	setDirection(RIGHT);
 	Vec2 velocity = Vec2(-GRAVITY_IN_PIXELS/2.0f, 0.0f);
 	Move(velocity);
 	}
 	if(HUDLayer::moveLeft)
 	{
+	setDirection(LEFT);
 	Vec2 velocity = Vec2(GRAVITY_IN_PIXELS/2.0f, 0.0f);
 	Move(velocity);
 	}
 	if(HUDLayer::pressJump)
 	{
+	setDirection(BOTTOM);
 	Vec2 velocity = Vec2(0.0f, -GRAVITY_IN_PIXELS);
 	Move(velocity);
 	}
